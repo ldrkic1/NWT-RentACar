@@ -28,6 +28,7 @@ public class UserService {
     //Pattern p = Pattern.compile("^[ A-Za-z]+$");
     Pattern name=Pattern.compile("^[-a-zA-Z-()]+(\\s+[-a-zA-Z-()]+)*$");
     Pattern mail=Pattern.compile("^(.+)@(.+)$");
+    Pattern password=Pattern.compile("^(?=.*?\\p{Lu})(?=.*?\\p{Ll})(?=.*?\\d)" + "(?=.*?[`~!@#$%^&*()\\-_=+\\\\|\\[{\\]};:'\",<.>/?]).*$");
 
     public List<User> getAllUsers(){
         if(userRepository.findAll().isEmpty())
@@ -61,11 +62,11 @@ public class UserService {
             throw new ValidationException("Username size must be between 1 and 15 characters");
         if(user.getPassword().isEmpty())
             throw new ValidationException("Password is empty");
-        //if(user.getPassword().contains())
-          //  throw new ValidationException("Password not in accordance with password policy.");
+        /*if(!password.matcher(user.getPassword()).matches())
+          throw new ValidationException("Password not in accordance with password policy");*/
         Optional<User> userOptional=userRepository.findByUsername(user.getUsername());
         if(userOptional.isPresent()){
-            throw new ApiRequestException("Username is already taken.");
+            throw new ApiRequestException("Username is already taken");
         }
         Set<Role>roles=user.getRoles();
         Set<Role> nove = new HashSet<>();

@@ -49,9 +49,6 @@ public class ReservationNotificationServiceTest {
         exception = assertThrows(ApiRequestException.class, () -> reservationNotificationService.getAllClientReservationNotifications(3L));
         assertTrue(exception.getMessage().contains("User with id: 3 isn't client."));
 
-        exception = assertThrows(NotFoundException.class, () -> reservationNotificationService.getAllClientReservationNotifications(1L));
-        assertTrue(exception.getMessage().contains("User with id: 1 occurs in no reservation notifications."));
-
         assertThat(reservationNotificationService.getAllClientReservationNotifications(2L).size()).isNotEqualTo(0);
     }
     @Test

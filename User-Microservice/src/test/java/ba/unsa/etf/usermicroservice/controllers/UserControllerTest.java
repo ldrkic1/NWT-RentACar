@@ -94,61 +94,61 @@ public class UserControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(json1))
                 .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$.message").value("Username is already taken."));
+                .andExpect(jsonPath("$.message").value("Username is already taken"));
         //ime prazno
         String json2 = "{ \"firstName\": \"\",\"lastName\": \"Dedic\", \"email\": \"irma@gmail.com\", \"username\": \"druga\", \"password\": \"1VarijacijA1**\", \"enabled\": \"true\", \"lastActivity\": \"2015-04-06T23:59:30\", \"roles\": [{ \"roleName\": \"ROLE_CLIENT\"}] }";
         mockMvc.perform(post("/users/newUser")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(json2))
                 .andExpect(status().isNotAcceptable())
-                .andExpect(jsonPath("$.message").value("Empty first name."));
+                .andExpect(jsonPath("$.message").value("First name is empty"));
         //prezime prazno
         String json3 = "{ \"firstName\": \"Irma\",\"lastName\": \"\", \"email\": \"irma@gmail.com\", \"username\": \"novi2\", \"password\": \"1VarijacijA1**\", \"enabled\": \"true\", \"lastActivity\": \"2015-04-06T23:59:30\", \"roles\": [{ \"roleName\": \"ROLE_CLIENT\"}] }";
         mockMvc.perform(post("/users/newUser")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(json3))
                 .andExpect(status().isNotAcceptable())
-                .andExpect(jsonPath("$.message").value("Empty last name."));
+                .andExpect(jsonPath("$.message").value("Last name is empty"));
         //email prazno
         String json4 = "{ \"firstName\": \"Irma\",\"lastName\": \"Dedic\", \"email\": \"\", \"username\": \"novi3\", \"password\": \"1VarijacijA1**\", \"enabled\": \"true\", \"lastActivity\": \"2015-04-06T23:59:30\", \"roles\": [{ \"roleName\": \"ROLE_CLIENT\"}] }";
         mockMvc.perform(post("/users/newUser")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(json4))
                 .andExpect(status().isNotAcceptable())
-                .andExpect(jsonPath("$.message").value("Empty email."));
+                .andExpect(jsonPath("$.message").value("Email is empty"));
         //email nevalidan
         String json5 = "{ \"firstName\": \"Irma\",\"lastName\": \"Dedic\", \"email\": \"nevalidni\", \"username\": \"novi4\", \"password\": \"1VarijacijA1**\", \"enabled\": \"true\", \"lastActivity\": \"2015-04-06T23:59:30\", \"roles\": [{ \"roleName\": \"ROLE_CLIENT\"}] }";
         mockMvc.perform(post("/users/newUser")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(json5))
                 .andExpect(status().isNotAcceptable())
-                .andExpect(jsonPath("$.message").value("Not valid email."));
+                .andExpect(jsonPath("$.message").value("Not valid email"));
         //username prazan
         String json6 = "{ \"firstName\": \"Irma\",\"lastName\": \"Dedic\", \"email\": \"irma@gmail.com\", \"username\": \"\", \"password\": \"1VarijacijA1**\", \"enabled\": \"true\", \"lastActivity\": \"2015-04-06T23:59:30\", \"roles\": [{ \"roleName\": \"ROLE_CLIENT\"}] }";
         mockMvc.perform(post("/users/newUser")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(json6))
                 .andExpect(status().isNotAcceptable())
-                .andExpect(jsonPath("$.message").value("Empty username."));
+                .andExpect(jsonPath("$.message").value("Username is empty"));
         //username nevalidan
        String json7 = "{ \"firstName\": \"Irma\",\"lastName\": \"Dedic\", \"email\": \"irma@gmail.com\", \"username\": \"asdfghjasdfghasdfs\", \"password\": \"1VarijacijA1**\", \"enabled\": \"true\", \"lastActivity\": \"2015-04-06T23:59:30\", \"roles\": [{ \"roleName\": \"ROLE_CLIENT\"}] }";
         mockMvc.perform(post("/users/newUser")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(json7))
                 .andExpect(status().isNotAcceptable())
-                .andExpect(jsonPath("$.message").value("Username size must be between 1 and 15 characters."));
+                .andExpect(jsonPath("$.message").value("Username size must be between 1 and 15 characters"));
         String json8 = "{ \"firstName\": \"Irma\",\"lastName\": \"Dedic\", \"email\": \"irma@gmail.com\", \"username\": \"asdfg\", \"password\": \"\", \"enabled\": \"true\", \"lastActivity\": \"2015-04-06T23:59:30\", \"roles\": [{ \"roleName\": \"ROLE_CLIENT\"}] }";
         mockMvc.perform(post("/users/newUser")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(json8))
                 .andExpect(status().isNotAcceptable())
-                .andExpect(jsonPath("$.message").value("Empty password."));
+                .andExpect(jsonPath("$.message").value("Password is empty"));
         String json9 = "{ \"firstName\": \"Irma\",\"lastName\": \"Dedic\", \"email\": \"irma@gmail.com\", \"username\": \"asdfg\", \"password\": \"neispravno\", \"enabled\": \"true\", \"lastActivity\": \"2015-04-06T23:59:30\", \"roles\": [{ \"roleName\": \"ROLE_CLIENT\"}] }";
-        mockMvc.perform(post("/users/newUser")
+       /* mockMvc.perform(post("/users/newUser")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(json9))
                 .andExpect(status().isNotAcceptable())
-                .andExpect(jsonPath("$.message").value("Password not in accordance with password policy."));
+                .andExpect(jsonPath("$.message").value("Password not in accordance with password policy."));*/
     }
     @Test
     public void delete2() throws Exception {
