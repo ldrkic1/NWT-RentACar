@@ -108,6 +108,17 @@ public class UserServiceTest {
         Exception exception = assertThrows(ValidationException.class, () -> userService.saveUser(user));
         assertTrue(exception.getMessage().contains("First name is empty"));
 
+        user.setFirstName("Irma222");
+        user.setLastName("Dedic");
+        user.setEmail("idedic@gmail.com");
+        user.setUsername("irma22");
+        user.setPassword("1PassworD1");
+        user.setEnabled(true);
+        user.setLastActivity(LocalDateTime.now());
+        user.setRoles(clientRoles);
+        exception = assertThrows(ValidationException.class, () -> userService.saveUser(user));
+        assertTrue(exception.getMessage().contains("First name must contain letters and spaces"));
+
         user.setFirstName("Irma");
         user.setLastName("");
         user.setEmail("idedic@gmail.com");
@@ -118,6 +129,85 @@ public class UserServiceTest {
         user.setRoles(clientRoles);
         exception = assertThrows(ValidationException.class, () -> userService.saveUser(user));
         assertTrue(exception.getMessage().contains("Last name is empty"));
+
+        user.setFirstName("Irma");
+        user.setLastName("Dedic****");
+        user.setEmail("idedic@gmail.com");
+        user.setUsername("irma22");
+        user.setPassword("1PassworD1");
+        user.setEnabled(true);
+        user.setLastActivity(LocalDateTime.now());
+        user.setRoles(clientRoles);
+        exception = assertThrows(ValidationException.class, () -> userService.saveUser(user));
+        assertTrue(exception.getMessage().contains("Last name must contain letters and spaces"));
+
+        user.setFirstName("Irma");
+        user.setLastName("Dedic");
+        user.setEmail("");
+        user.setUsername("irma22");
+        user.setPassword("1PassworD1");
+        user.setEnabled(true);
+        user.setLastActivity(LocalDateTime.now());
+        user.setRoles(clientRoles);
+        exception = assertThrows(ValidationException.class, () -> userService.saveUser(user));
+        assertTrue(exception.getMessage().contains("Email is empty"));
+
+        user.setFirstName("Irma");
+        user.setLastName("Dedic");
+        user.setEmail("irmaa");
+        user.setUsername("irma22");
+        user.setPassword("1PassworD1");
+        user.setEnabled(true);
+        user.setLastActivity(LocalDateTime.now());
+        user.setRoles(clientRoles);
+        exception = assertThrows(ValidationException.class, () -> userService.saveUser(user));
+        assertTrue(exception.getMessage().contains("Not valid email"));
+
+
+        user.setFirstName("Irma");
+        user.setLastName("Dedic");
+        user.setEmail("irma@gmail.com");
+        user.setUsername("");
+        user.setPassword("1PassworD1");
+        user.setEnabled(true);
+        user.setLastActivity(LocalDateTime.now());
+        user.setRoles(clientRoles);
+        exception = assertThrows(ValidationException.class, () -> userService.saveUser(user));
+        assertTrue(exception.getMessage().contains("Username is empty"));
+
+        user.setFirstName("Irma");
+        user.setLastName("Dedic");
+        user.setEmail("irma@gmail.com");
+        user.setUsername("idedic78023458jfdsm888");
+        user.setPassword("1PassworD1");
+        user.setEnabled(true);
+        user.setLastActivity(LocalDateTime.now());
+        user.setRoles(clientRoles);
+        exception = assertThrows(ValidationException.class, () -> userService.saveUser(user));
+        assertTrue(exception.getMessage().contains("Username size must be between 1 and 15 characters"));
+
+        user.setFirstName("Irma");
+        user.setLastName("Dedic");
+        user.setEmail("irma@gmail.com");
+        user.setUsername("idedic1510");
+        user.setPassword("");
+        user.setEnabled(true);
+        user.setLastActivity(LocalDateTime.now());
+        user.setRoles(clientRoles);
+        exception = assertThrows(ValidationException.class, () -> userService.saveUser(user));
+        assertTrue(exception.getMessage().contains("Password is empty"));
+
+        user.setFirstName("Irma");
+        user.setLastName("Dedic");
+        user.setEmail("irma@gmail.com");
+        user.setUsername("idedic1510");
+        user.setPassword("irma");
+        user.setEnabled(true);
+        user.setLastActivity(LocalDateTime.now());
+        user.setRoles(clientRoles);
+        exception = assertThrows(ValidationException.class, () -> userService.saveUser(user));
+        assertTrue(exception.getMessage().contains("Password not in accordance with password policy."));
+
 
     }
 }

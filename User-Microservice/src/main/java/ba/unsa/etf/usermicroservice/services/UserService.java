@@ -43,6 +43,24 @@ public class UserService {
     }
 
 
+    private Boolean passwordTest(String password){
+        Boolean lowerLetter=false;
+        Boolean upperLetter=false;
+        Boolean digit=false;
+        for(int i=0;i<password.length();i++){
+            if(password.charAt(i)>='A' && password.charAt(i)<='Z')
+                upperLetter=true;
+            if(password.charAt(i)>='a' && password.charAt(i)<='z')
+                lowerLetter=true;
+            if(password.charAt(i)>='0' && password.charAt(i)<='9')
+                digit=true;
+
+        }
+        if(lowerLetter && upperLetter && digit && password.length()>=8)
+            return true;
+        return false;
+    }
+
     public User saveUser(User user){
         if(user.getFirstName().isEmpty())
             throw new ValidationException("First name is empty");
@@ -50,7 +68,7 @@ public class UserService {
             throw new ValidationException("First name must contain letters and spaces");
         if(user.getLastName().isEmpty())
             throw new ValidationException("Last name is empty");
-        if(!name.matcher(user.getFirstName()).matches())
+        if(!name.matcher(user.getLastName()).matches())
             throw new ValidationException("Last name must contain letters and spaces");
         if(user.getEmail().isEmpty())
             throw new ValidationException("Email is empty");
@@ -62,8 +80,9 @@ public class UserService {
             throw new ValidationException("Username size must be between 1 and 15 characters");
         if(user.getPassword().isEmpty())
             throw new ValidationException("Password is empty");
-        /*if(!password.matcher(user.getPassword()).matches())
-          throw new ValidationException("Password not in accordance with password policy");*/
+        //if(!password.matcher(user.getPassword()).matches())
+        if(!passwordTest(user.getPassword()))
+            throw new ValidationException("Password not in accordance with password policy.");
         Optional<User> userOptional=userRepository.findByUsername(user.getUsername());
         if(userOptional.isPresent()){
             throw new ApiRequestException("Username is already taken");
