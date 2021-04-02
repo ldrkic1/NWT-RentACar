@@ -19,7 +19,8 @@ public interface QuestionRepository extends JpaRepository<Question, Long> {
 
     List<Question> findAllByUserId(Long clientID);
 
-    List<Question> findAllByTitle(String title);
+    @Query("select  q from Question q where q.title=:title")
+    List<Question> getAllQuestionsByTitle(String title);
 
     @Transactional
     @Modifying

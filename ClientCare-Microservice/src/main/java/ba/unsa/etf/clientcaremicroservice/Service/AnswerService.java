@@ -36,7 +36,7 @@ public class AnswerService {
     public Answer getAnswerOnQuestion(Long questionId) {
         Optional<Question> question = questionRepository.findById(questionId);
         if(question.isPresent()) {
-            Optional<Answer> answer = ansRepository.findAnswerByQuestion_Id(questionId);
+            Optional<Answer> answer = ansRepository.getAnswerByQuestionId(questionId);
             if (answer.isPresent()) {
                 return answer.get();
             } else throw new ApiRequestException("Question with id: " + questionId + " isn't answered!");
@@ -46,7 +46,7 @@ public class AnswerService {
 
 
     public Answer addAnswerOnQuestion(Answer answer, Long questionId) {
-        Optional<Answer> ans = ansRepository.findAnswerByQuestion_Id(questionId);
+        Optional<Answer> ans = ansRepository.getAnswerByQuestionId(questionId);
         if(!ans.isPresent()) {
             Optional<Question> question = questionRepository.findById(questionId);
             if(question.isPresent()) {

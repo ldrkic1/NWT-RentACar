@@ -27,7 +27,7 @@ public class QuestionService {
 
     public List<Question> getQuestions(String title) {
         if(title == null) return questionRepository.findAll();
-        else return questionRepository.findAllByTitle(title);
+        else return questionRepository.getAllQuestionsByTitle(title);
     }
     public List<Question> getAllUnansweredQuestions() {
         return questionRepository.getUnansweredQuestions();

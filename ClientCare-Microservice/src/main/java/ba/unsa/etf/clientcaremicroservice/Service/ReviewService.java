@@ -28,7 +28,7 @@ public class ReviewService {
     public List<Review> getReviews(String title) {
 
         if(title == null) return reviewRepository.findAll();
-        else return reviewRepository.findAllByTitle(title);
+        else return reviewRepository.getAllByTitle(title);
     }
 
     public List<Review> getClientReviews(Long clientID) {

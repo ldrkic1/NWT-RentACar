@@ -11,6 +11,7 @@ public interface ReviewRepository extends JpaRepository<Review, Long> {
 
     List<Review> findAllByUserId(Long clientID);
 
-    List<Review> findAllByTitle(String title);
+    @Query("SELECT r from Review r where r.title=:title")
+    List<Review> getAllByTitle(String title);
 
 }
