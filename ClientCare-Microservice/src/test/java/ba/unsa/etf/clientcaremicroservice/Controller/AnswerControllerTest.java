@@ -49,7 +49,7 @@ public class AnswerControllerTest {
 
     @Test
     public void answerQuestion() throws Exception{
-        String json = "{ \"answer\": \"odgvovor na pitanje\", \"user\": { \"firstName\": \"Admin\", \"lastName\": \"Admin\" } }";
+        String json = "{ \"answer\": \"odgvovor na pitanje\", \"user\": { \"username\": \"aadmin21\" } }";
         mockMvc.perform(post("/answer?questionID=4")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(json))
@@ -64,17 +64,17 @@ public class AnswerControllerTest {
                 .content(json))
                 .andExpect(status().isBadRequest());
 
-        String json1 = "{ \"answer\": \"odgvovor na pitanje\", \"user\": { \"firstName\": \"Lamija\", \"lastName\": \"Drkic\" } }";
+        String json1 = "{ \"answer\": \"odgvovor na pitanje\", \"user\": { \"username\": \"ldrkic1\" } }";
         mockMvc.perform(post("/answer?questionID=3")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(json1))
                 .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$.message").value("User Lamija Drkic isn't admin!"));
+                .andExpect(jsonPath("$.message").value("User ldrkic1 isn't admin!"));
     }
 
     @Test
     public void deleteAnswer() throws Exception {
-        String json = "{ \"answer\": \"odgvovor na pitanje\", \"user\": { \"firstName\": \"Admin\", \"lastName\": \"Admin\" } }";
+        String json = "{ \"answer\": \"odgvovor na pitanje\", \"user\": { \"username\": \"aadmin21\" } }";
         mockMvc.perform(post("/answer?questionID=3")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(json))

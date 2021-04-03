@@ -48,7 +48,13 @@ public class ReviewService {
     }
 
     public Review addReview(Review review) {
-        Optional<User> user = userRepository.findUserByFirstNameAndAndLastName(review.getUser().getFirstName(), review.getUser().getLastName());
+        if(review.getUser().getUsername().isEmpty() || review.getUser().getUsername().isBlank() || review.getUser().getUsername() == null) {
+            throw new ValidationException("Username is required");
+        }
+        if(review.getUser().getUsername().length()<1 || review.getUser().getUsername().length()>15) {
+            throw new ValidationException("Username size must be between 1 and 15 characters");
+        }
+        Optional<User> user = userRepository.getUserByUsername(review.getUser().getUsername());
         if(user.isPresent()) {
             if(user.get().isClient()) {
                 if (review.getTitle() == null || review.getTitle().isEmpty() || review.getTitle().isBlank())
@@ -59,9 +65,9 @@ public class ReviewService {
                 return reviewRepository.save(review);
             }
 
-            else throw new ApiRequestException(review.getUser().getFirstName() + " " + review.getUser().getLastName() + " isn't client.");
+            else throw new ApiRequestException(user.get().getUsername() + " isn't client.");
         }
-        else throw new NotFoundException("Cilent " + review.getUser().getFirstName() + " " + review.getUser().getLastName() + " doesn't exist.");
+        else throw new NotFoundException("Cilent " + review.getUser().getUsername() + " doesn't exist.");
 
     }
 

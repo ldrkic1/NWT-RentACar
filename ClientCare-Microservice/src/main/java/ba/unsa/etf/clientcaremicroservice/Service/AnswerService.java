@@ -50,7 +50,13 @@ public class AnswerService {
         if(!ans.isPresent()) {
             Optional<Question> question = questionRepository.findById(questionId);
             if(question.isPresent()) {
-                Optional<User> user = userRepository.findUserByFirstNameAndAndLastName(answer.getUser().getFirstName(), answer.getUser().getLastName());
+                if(answer.getUser().getUsername().isEmpty() || answer.getUser().getUsername().isBlank() || answer.getUser().getUsername() == null) {
+                    throw new ValidationException("Username is required");
+                }
+                if(answer.getUser().getUsername().length()<1 || answer.getUser().getUsername().length()>15) {
+                    throw new ValidationException("Username size must be between 1 and 15 characters");
+                }
+                Optional<User> user = userRepository.getUserByUsername(answer.getUser().getUsername());
                 if(user.isPresent()) {
                     if(!user.get().isClient()) {
                         if(answer.getAnswer() != null && !answer.getAnswer().isEmpty() && !answer.getAnswer().isBlank()) {
@@ -61,9 +67,9 @@ public class AnswerService {
                         }
                         else throw new ValidationException("Answer is required.");
                     }
-                    else throw new ApiRequestException("User " + answer.getUser().getFirstName() + " " + answer.getUser().getLastName() + " isn't admin!");
+                    else throw new ApiRequestException("User " + answer.getUser().getUsername()  + " isn't admin!");
                 }
-                else throw new NotFoundException("User " + answer.getUser().getFirstName() + " " + answer.getUser().getLastName() + " doesn't exist");
+                else throw new NotFoundException("User " + answer.getUser().getUsername() + " doesn't exist");
             }
             else throw new NotFoundException("Question with id: " + questionId + " doesn't exist.");
         }

@@ -36,14 +36,14 @@ public class ClientCareApplication {
 			adminUserRoles.add(clientRole);
 
 			//users
-			User user1 = new User("Lamija", "Drkić");
+			User user1 = new User("Lamija", "Drkić", "ldrkic1");
 			user1.setRoles(cilentRoles);
-			User user2 = new User("Mujo", "Mujic");
+			User user2 = new User("Mujo", "Mujic", "mmujic2");
 			user2.setRoles(cilentRoles);
 
-			User userAdmin = new User("Niko", "Nikic");
+			User userAdmin = new User("Niko", "Nikic", "nnikic123");
 			userAdmin.setRoles(adminUserRoles);
-			User a1 = new User("Admin","Admin");
+			User a1 = new User("Admin","Admin", "aadmin21");
 			a1.setRoles(adminRoles);
 			userRepository.saveAll(List.of(a1, user1, user2, userAdmin));
 

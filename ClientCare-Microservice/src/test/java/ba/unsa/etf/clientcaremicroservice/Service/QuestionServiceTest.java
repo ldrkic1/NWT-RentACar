@@ -91,11 +91,12 @@ public class QuestionServiceTest {
         user = new User();
         user.setFirstName("Lala");
         user.setLastName("Lalic");
+        user.setUsername("llalic");
         question.setUser(user);
         Exception e = assertThrows(
                 NotFoundException.class,
                 () -> questionService.addQuestion(question));
-        assertTrue(e.getMessage().contains("Client Lala Lalic doesn't exist."));
+        assertTrue(e.getMessage().contains("Client llalic doesn't exist."));
         user = userService.getUserById(2L).get();
         question.setUser(user);
         e = assertThrows(

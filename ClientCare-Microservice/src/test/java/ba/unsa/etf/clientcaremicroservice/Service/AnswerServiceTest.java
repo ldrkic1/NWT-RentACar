@@ -61,13 +61,13 @@ public class AnswerServiceTest {
         Exception e = assertThrows(
                 ApiRequestException.class,
                 () -> answerService.addAnswerOnQuestion(answer, question.getId()));
-        assertTrue(e.getMessage().contains("User Lamija Drkić isn't admin!"));
-        user = new User("Nepostojeci","User");
+        assertTrue(e.getMessage().contains("User ldrkic1 isn't admin!"));
+        user = new User("Nepostojeci","User","nuser123");
         answer.setUser(user);
         e = assertThrows(
                 NotFoundException.class,
                 () -> answerService.addAnswerOnQuestion(answer, question.getId()));
-        assertTrue(e.getMessage().contains("User Nepostojeci User doesn't exist"));
+        assertTrue(e.getMessage().contains("User nuser123 doesn't exist"));
         user = userService.getUserById(1L).get();
         answer.setUser(user);
         e = assertThrows(

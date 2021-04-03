@@ -64,7 +64,13 @@ public class QuestionService {
         }
     }
     public Question addQuestion(Question question) {
-        Optional<User> user = userRepository.findUserByFirstNameAndAndLastName(question.getUser().getFirstName(), question.getUser().getLastName());
+        if(question.getUser().getUsername().isEmpty() || question.getUser().getUsername().isBlank() || question.getUser().getUsername() == null) {
+            throw new ValidationException("Username is required");
+        }
+        if(question.getUser().getUsername().length()<1 || question.getUser().getUsername().length()>15) {
+            throw new ValidationException("Username size must be between 1 and 15 characters");
+        }
+        Optional<User> user = userRepository.getUserByUsername(question.getUser().getUsername());
         if(user.isPresent()) {
             if(user.get().isClient()) {
                 if(question.getTitle() == null || question.getTitle().isEmpty() || question.getTitle().isBlank()) throw new ValidationException("Title is required.");
@@ -72,8 +78,8 @@ public class QuestionService {
                 question.setUser(user.get());
                 return questionRepository.save(question);
             }
-            else throw new ApiRequestException(question.getUser().getFirstName() + " " + question.getUser().getLastName() + " isn't client.");
+            else throw new ApiRequestException(user.get().getUsername() + " isn't client.");
         }
-        else throw new NotFoundException("Client " + question.getUser().getFirstName() + " " + question.getUser().getLastName() + " doesn't exist.");
+        else throw new NotFoundException("Client " + question.getUser().getUsername() + " doesn't exist.");
     }
 }

@@ -2,6 +2,8 @@ package ba.unsa.etf.clientcaremicroservice.Model;
 import ba.unsa.etf.clientcaremicroservice.RoleName;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;
@@ -13,6 +15,9 @@ public class User {
     private Long id;
     private String firstName;
     private String lastName;
+    @NotBlank(message = "Username is required!")
+    @Size(min = 1, max = 15, message = "Username must have between 1 and 15 characters!")
+    private String username;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     @JoinTable(
@@ -24,9 +29,10 @@ public class User {
     public User() {
     }
 
-    public User(String firstName, String lastName) {
+    public User(String firstName, String lastName, String username) {
         this.firstName = firstName;
         this.lastName = lastName;
+        this.username = username;
     }
 
     public Long getId() {
@@ -51,6 +57,14 @@ public class User {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public Set<Role> getRoles() {

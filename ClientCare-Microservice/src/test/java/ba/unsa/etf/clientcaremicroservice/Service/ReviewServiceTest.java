@@ -65,6 +65,7 @@ public class ReviewServiceTest {
         user = new User();
         user.setFirstName("Lala");
         user.setLastName("Lalic");
+        user.setUsername("llalic123");
         review.setUser(user);
         assertThrows(
                 NotFoundException.class,

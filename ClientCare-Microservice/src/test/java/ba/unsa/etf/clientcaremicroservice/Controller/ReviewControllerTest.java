@@ -97,29 +97,29 @@ public class ReviewControllerTest {
 
     @Test
     public void addReview() throws Exception {
-        String json = "{ \"title\": \"Naslov\",\"review\": \"Tekst recenzije\", \"user\": { \"firstName\": \"Lamija\", \"lastName\": \"Drkic\" } }";
+        String json = "{ \"title\": \"Naslov\",\"review\": \"Tekst recenzije\", \"user\": { \"username\": \"ldrkic1\"} }";
         mockMvc.perform(post("/review/newReview")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(json))
                 .andExpect(status().isOk());
-        String json1 = "{ \"title\": \"  \",\"review\": \"Tekst recenzije\", \"user\": { \"firstName\": \"Lamija\", \"lastName\": \"Drkic\" } }";
+        String json1 = "{ \"title\": \"  \",\"review\": \"Tekst recenzije\", \"user\": { \"username\": \"ldrkic1\"} }";
         mockMvc.perform(post("/review/newReview")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(json1))
                 .andExpect(status().isNotAcceptable())
                 .andExpect(jsonPath("$.message").value("Title is required."));
-        String json2 = "{ \"title\": \" naslov \",\"review\": \" \", \"user\": { \"firstName\": \"Lamija\", \"lastName\": \"Drkic\" } }";
+        String json2 = "{ \"title\": \" naslov \",\"review\": \" \", \"user\": { \"username\": \"ldrkic1\"} }";
         mockMvc.perform(post("/review/newReview")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(json2))
                 .andExpect(status().isNotAcceptable())
                 .andExpect(jsonPath("$.message").value("Review is required."));
-        String json3 = "{ \"title\": \" naslov \",\"review\": \"Tekst recenzije\", \"user\": { \"firstName\": \"Lamsa\", \"lastName\": \"Drkic\" } }";
+        String json3 = "{ \"title\": \" naslov \",\"review\": \"Tekst recenzije\", \"user\": { \"username\": \"ldrkic\"} }";
         mockMvc.perform(post("/review/newReview")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(json3))
                 .andExpect(status().isNotFound())
-                .andExpect(jsonPath("$.message").value("Cilent Lamsa Drkic doesn't exist."));
+                .andExpect(jsonPath("$.message").value("Cilent ldrkic doesn't exist."));
     }
 
 }

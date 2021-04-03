@@ -99,33 +99,33 @@ public class QuestionControllerTest {
 
     @Test
     public void addQuestion() throws Exception {
-        String json = "{ \"title\": \"Naslov\",\"question\": \"Tekst pitanja\", \"answered\": \"false\", \"user\": { \"firstName\": \"Lamija\", \"lastName\": \"Drkic\" } }";
+        String json = "{ \"title\": \"Naslov\",\"question\": \"Tekst pitanja\", \"answered\": \"false\", \"user\": { \"username\": \"ldrkic1\" } }";
 
         mockMvc.perform(post("/question/newQuestion")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(json))
                 .andExpect(status().isOk());
 
-        String json1 = "{ \"title\": \"\",\"question\": \"Tekst pitanja\", \"answered\": \"false\", \"user\": { \"firstName\": \"Lamija\", \"lastName\": \"Drkic\" } }";
+        String json1 = "{ \"title\": \"\",\"question\": \"Tekst pitanja\", \"answered\": \"false\", \"user\": { \"username\": \"ldrkic1\" } }";
         mockMvc.perform(post("/question/newQuestion")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(json1))
                 .andExpect(status().isNotAcceptable())
                 .andExpect(jsonPath("$.message").value("Title is required."));
 
-        String json2 = "{ \"title\": \"naslov\",\"question\": \"   \", \"answered\": \"false\", \"user\": { \"firstName\": \"Lamija\", \"lastName\": \"Drkic\" } }";
+        String json2 = "{ \"title\": \"naslov\",\"question\": \"   \", \"answered\": \"false\", \"user\": { \"username\": \"ldrkic1\" } }";
         mockMvc.perform(post("/question/newQuestion")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(json2))
                 .andExpect(status().isNotAcceptable())
                 .andExpect(jsonPath("$.message").value("Question is required."));
 
-        String json3 = "{ \"title\": \"naslov\",\"question\": \"Tekst pitanja\", \"answered\": \"false\", \"user\": { \"firstName\": \"Lamsa\", \"lastName\": \"Drkic\" } }";
+        String json3 = "{ \"title\": \"naslov\",\"question\": \"Tekst pitanja\", \"answered\": \"false\", \"user\": { \"username\": \"ldrkic\" } }";
         mockMvc.perform(post("/question/newQuestion")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(json3))
                 .andExpect(status().isNotFound())
-                .andExpect(jsonPath("$.message").value("Client Lamsa Drkic doesn't exist."));
+                .andExpect(jsonPath("$.message").value("Client ldrkic doesn't exist."));
 
     }
 }
