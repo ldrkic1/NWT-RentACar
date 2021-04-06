@@ -13,6 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.transaction.Transactional;
+import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.List;
@@ -80,6 +81,8 @@ public class QuestionNotificationServiceTest {
 
     @Test
     public void addQuestionNotificationTest()throws Exception{
+
+
         QuestionNotification qn1 = new QuestionNotification();
         Question question1 = new Question();
         question1.setId(50000L);
@@ -107,6 +110,8 @@ public class QuestionNotificationServiceTest {
 
         Exception exception = assertThrows(ApiRequestException.class, () -> questionNotificationService.addQuestionNotification(qn2));
         assertTrue(exception.getMessage().contains("Question notification with question id: 1 already exists"));
+
+
     }
 
 }

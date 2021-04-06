@@ -13,6 +13,7 @@ import java.util.Optional;
 public interface RoleRepository extends JpaRepository<Role, Integer> {
     Role findByRoleName(RoleName roleName);
 
+    //sve role po rolename
     @Query(value = "SELECT * from role r where r.role_name LIKE :role_name", nativeQuery = true)
     Optional<Role> getRole (@Param("role_name") String role_name);
 }

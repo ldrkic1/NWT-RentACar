@@ -2,11 +2,14 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/Vehicle-Microservice/.mvn/.mvn.iml" filepath="$PROJECT_DIR$/Vehicle-Microservice/.mvn/.mvn.iml" />
       <module fileurl="file://$PROJECT_DIR$/ClientCare-Microservice/ClientCare.iml" filepath="$PROJECT_DIR$/ClientCare-Microservice/ClientCare.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/NWT-RentACar.iml" filepath="$PROJECT_DIR$/.idea/NWT-RentACar.iml" />
       <module fileurl="file://$PROJECT_DIR$/Config-server/config-server.iml" filepath="$PROJECT_DIR$/Config-server/config-server.iml" />
       <module fileurl="file://$PROJECT_DIR$/Eureka-service/discovery-server.iml" filepath="$PROJECT_DIR$/Eureka-service/discovery-server.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Vehicle-Microservice/src/main/main.iml" filepath="$PROJECT_DIR$/Vehicle-Microservice/src/main/main.iml" />
       <module fileurl="file://$PROJECT_DIR$/Notification-Microservice/notification-microservice.iml" filepath="$PROJECT_DIR$/Notification-Microservice/notification-microservice.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Vehicle-Microservice/src/test/test.iml" filepath="$PROJECT_DIR$/Vehicle-Microservice/src/test/test.iml" />
       <module fileurl="file://$PROJECT_DIR$/User-Microservice/user-microservice.iml" filepath="$PROJECT_DIR$/User-Microservice/user-microservice.iml" />
     </modules>
   </component>

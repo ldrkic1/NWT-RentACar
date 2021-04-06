@@ -36,6 +36,9 @@ public class QuestionNotificationService {
 
     //dodaj question notifikaciju
     public QuestionNotification addQuestionNotification(QuestionNotification questionNotification) {
+        if(questionNotification.getTitle().isEmpty())
+            throw new ValidationException("Notification title is empty");
+
         Optional<User> user = userRepository.findByUsername(questionNotification.getUser().getUsername());
         if (user.isPresent()) {
             //if (doesContain(user.get(), ROLE_CLIENT)) {
