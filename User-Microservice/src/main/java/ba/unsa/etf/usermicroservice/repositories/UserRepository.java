@@ -31,4 +31,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     //daj sve role nekog usera
     @Query("SELECT u.roles FROM User u WHERE u.id=:id")
     Set<Role> getRolesById (@Param("id")Long id);
+
+    @Query(value="SELECT * FROM user u, role r, users_roles ur WHERE r.role_name LIKE 'ROLE_ADMIN' AND u.id=ur.user_id AND r.id=ur.role_id", nativeQuery = true)
+    List<User> getAdmins();
 }

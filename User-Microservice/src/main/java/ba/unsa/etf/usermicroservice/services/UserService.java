@@ -41,8 +41,12 @@ public class UserService {
         if(clients.isEmpty())throw new NotFoundException("There is no clients");
         return clients;
     }
-
-
+    public List<User> getAllAdmins(){
+        List<User>admins=new ArrayList<>();
+        admins=userRepository.getAdmins();
+        if(admins.isEmpty())throw new NotFoundException("There is no admins");
+        return admins;
+    }
     private Boolean passwordTest(String password){
         Boolean lowerLetter=false;
         Boolean upperLetter=false;
@@ -168,6 +172,22 @@ public class UserService {
     }
     public Long numberOfClients(){
         return Long.valueOf(getAllClients().size());
+    }
+
+    public Optional<User> getClientByUsername(String username) {
+        for(User user: getAllClients()){
+            if(user.getUsername().equals(username))
+                return Optional.of(user);
+        }
+        throw new NotFoundException("There is no client with username: "+username);
+    }
+
+    public Optional<User> getAdminByUsername(String username) {
+        for(User user: getAllAdmins()){
+            if(user.getUsername().equals(username))
+                return Optional.of(user);
+        }
+        throw new NotFoundException("There is no admin with username: "+username);
     }
 }
 

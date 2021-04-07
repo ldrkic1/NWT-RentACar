@@ -32,6 +32,11 @@ public class UserController {
         return userService.getAllClients();
     }
 
+    @GetMapping("/admins")
+    public List<User> getAdmins(){
+        return userService.getAllAdmins();
+    }
+
     @PostMapping("/newUser")
     public User addUser(@RequestBody @Valid User user, Errors errors){
         user.setLastActivity(LocalDateTime.now());
@@ -55,6 +60,14 @@ public class UserController {
     @GetMapping("/byUsername")
     public Optional<User> findUserByUsername(@RequestParam(value = "username") String username){
         return userService.getUserByUsername(username);
+    }
+    @GetMapping("/client")
+    public Optional<User> findClientByUsername(@RequestParam(value = "username") String username){
+        return userService.getClientByUsername(username);
+    }
+    @GetMapping("/admin")
+    public Optional<User> findAdminByUsername(@RequestParam(value = "username") String username){
+        return userService.getAdminByUsername(username);
     }
     @DeleteMapping
     public String deleteUserById(@RequestParam(value = "id") Long id){
