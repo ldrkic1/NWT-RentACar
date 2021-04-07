@@ -1,4 +1,4 @@
-package ba.unsa.etf.clientcaremicroservice.Controller;
+package ba.unsa.etf.vehiclemicroservice.demo.Controller;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
@@ -7,9 +7,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RefreshScope
 @RestController
-public class TestMessageController {
+public class TestController {
 
-    @Value("${message:Hello from clientcare service}")
+    @Value("${message:Hello from vehicle service}")
     private String message;
 
     @RequestMapping("/message")

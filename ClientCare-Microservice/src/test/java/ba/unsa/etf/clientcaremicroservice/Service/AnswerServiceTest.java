@@ -7,6 +7,7 @@ import ba.unsa.etf.clientcaremicroservice.Model.Answer;
 import ba.unsa.etf.clientcaremicroservice.Model.User;
 import ba.unsa.etf.clientcaremicroservice.Model.Question;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.runner.RunWith;
@@ -27,6 +28,17 @@ public class AnswerServiceTest {
 
     @Autowired
     QuestionService questionService;
+
+    @BeforeAll
+    private void addQuestion() {
+        Question question = new Question();
+        User user = userService.getUserById(2L).get();
+        question.setUser(user);
+        question.setUser(user);
+        question.setTitle("Naslov");
+        question.setQuestion("Novo pitanje?");
+        questionService.addQuestion(question);
+    }
     @Test
     public void getAllAnswersTest() {
         assertTrue(answerService.getAnswers().size() == 2);
@@ -40,12 +52,6 @@ public class AnswerServiceTest {
         );
         assertTrue(exception.getMessage().contains("Question with id: 7 doesn't exist."));
 
-        exception = assertThrows(
-                ApiRequestException.class,
-                () -> answerService.getAnswerOnQuestion(3L)
-        );
-        assertTrue(exception.getMessage().contains("Question with id: 3 isn't answered!"));
-
         Answer answer = answerService.getAnswerOnQuestion(1L);
         assertTrue(answer.getQuestion().getTitle().equals("Osiguranje automobila"));
 
@@ -56,7 +62,7 @@ public class AnswerServiceTest {
         User user = userService.getUserById(2L).get();
         Answer answer = new Answer();
         answer.setUser(user);
-        Question question = questionService.getQuestionById(5L);
+        Question question = questionService.getQuestionById(3L);
         answer.setQuestion(question);
         Exception e = assertThrows(
                 ApiRequestException.class,
@@ -86,12 +92,24 @@ public class AnswerServiceTest {
         assertDoesNotThrow(() -> answerService.addAnswerOnQuestion(answer, question.getId()));
     }
 
-    @Test
+   @Test
     public void deleteAnswerTest() {
+        Question question = new Question();
+        User user1 = userService.getUserById(2L).get();
+        question.setUser(user1);
+        question.setUser(user1);
+        question.setTitle("Naslov");
+        question.setQuestion("Novo pitanje?");
+        questionService.addQuestion(question);
+        User user = userService.getUserById(1L).get();
+        Answer answer = new Answer();
+        answer.setUser(user);
+        answer.setAnswer("Odgovor");
+        Answer a = answerService.addAnswerOnQuestion(answer, 5L);
         Exception e = assertThrows(
                 NotFoundException.class,
                 () -> answerService.deleteAnswerById(16L));
         assertTrue(e.getMessage().contains("Answer with id: 16 doesn't exist."));
-        assertDoesNotThrow(() -> answerService.deleteAnswerById(5L));
+        assertDoesNotThrow(() -> answerService.deleteAnswerById(a.getId()));
     }
 }
