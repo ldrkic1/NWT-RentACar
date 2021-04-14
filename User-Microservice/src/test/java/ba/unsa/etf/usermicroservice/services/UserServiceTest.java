@@ -84,7 +84,7 @@ public class UserServiceTest {
         exception = assertThrows(ApiRequestException.class, () -> userService.deleteUserById(1L));
         assertTrue(exception.getMessage().contains("User with id: 1 can't be removed."));
 
-        assertThat(userService.deleteUserById(3L)).isEqualTo("User with id: 3 successfully removed.");
+        assertThat(userService.deleteUserById(2L)).isEqualTo("User with id: 2 successfully removed.");
     }
 
 

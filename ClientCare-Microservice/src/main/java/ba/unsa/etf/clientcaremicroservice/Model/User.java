@@ -1,5 +1,7 @@
 package ba.unsa.etf.clientcaremicroservice.Model;
 import ba.unsa.etf.clientcaremicroservice.RoleName;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -11,7 +13,7 @@ import java.util.TreeSet;
 @Table
 public class User {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    //@GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
     private String firstName;
     private String lastName;
@@ -19,7 +21,8 @@ public class User {
     @Size(min = 1, max = 15, message = "Username must have between 1 and 15 characters!")
     private String username;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+
     @JoinTable(
             name = "user_role",
             joinColumns = @JoinColumn(name = "user_id"),

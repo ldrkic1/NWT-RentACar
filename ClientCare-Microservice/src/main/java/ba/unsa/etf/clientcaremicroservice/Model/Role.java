@@ -9,11 +9,17 @@ import javax.persistence.*;
 public class Role {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    //@GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Enumerated(EnumType.STRING)
     private RoleName roleName;
 
     public Role() {
+    }
+
+    public Role(Long id, RoleName roleName) {
+        this.id = id;
+        this.roleName = roleName;
     }
 
     public Role(RoleName roleName) {

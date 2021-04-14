@@ -10,4 +10,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
     Optional<User> findUserByFirstNameAndAndLastName(String firstName, String lastName);
     @Query("select u from User u where u.username=:username")
     Optional<User> getUserByUsername(String username);
+
+    Optional<User> findByUsername(String username);
 }

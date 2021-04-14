@@ -2,6 +2,7 @@ package ba.unsa.etf.clientcaremicroservice.Controller;
 
 import ba.unsa.etf.clientcaremicroservice.Model.Review;
 import ba.unsa.etf.clientcaremicroservice.Service.ReviewService;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,7 +34,7 @@ public class ReviewController {
     }
     //dodavanje nove recenzije
     @PostMapping(path = "/newReview")
-    public Review addReview(@RequestBody Review review) {
+    public Review addReview(@RequestBody Review review) throws JsonProcessingException {
         return reviewService.addReview(review);
     }
 

@@ -15,6 +15,7 @@ import org.springframework.validation.Errors;
 
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
+import java.time.Month;
 import java.util.*;
 import java.util.regex.Pattern;
 
@@ -176,18 +177,30 @@ public class UserService {
 
     public Optional<User> getClientByUsername(String username) {
         for(User user: getAllClients()){
-            if(user.getUsername().equals(username))
+            if(user.getUsername().equals(username)) {
+                user.setEnabled(null);
+                user.setPassword(null);
+                user.setLastActivity(LocalDateTime.of(1990, Month.MARCH, 29, 20, 30, 40));
+                user.setEmail(null);
                 return Optional.of(user);
+            }
         }
         throw new NotFoundException("There is no client with username: "+username);
     }
 
     public Optional<User> getAdminByUsername(String username) {
-        for(User user: getAllAdmins()){
-            if(user.getUsername().equals(username))
+        for(User user: getAllAdmins()) {
+            if (user.getUsername().equals(username)) {
+                user.setEnabled(null);
+                user.setPassword(null);
+                user.setLastActivity(LocalDateTime.of(1990, Month.MARCH, 29, 20, 30, 40));
+                user.setEmail(null);
                 return Optional.of(user);
+            }
         }
         throw new NotFoundException("There is no admin with username: "+username);
     }
+
+
 }
 

@@ -17,7 +17,7 @@ import java.util.Set;
 @Table
 public class User {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
     @NotBlank(message = "First name is required!")
     @Pattern(regexp = "[A-Za-z \\s-]*", message = "First name is not valid")

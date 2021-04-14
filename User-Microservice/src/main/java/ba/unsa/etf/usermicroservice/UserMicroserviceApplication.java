@@ -10,6 +10,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 //import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 //import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
+import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
@@ -23,7 +24,7 @@ import java.util.Set;
 @EnableEurekaClient
 public class UserMicroserviceApplication {
     @Bean
-    /*@LoadBalanced*/
+    @LoadBalanced
     public RestTemplate getRestTemplate(){
         return new RestTemplate();
     }
@@ -66,7 +67,28 @@ public class UserMicroserviceApplication {
             User klijent2=new User("Irma", "Dedic", "idedic@gmail.com", "irma", "1PassworD1*", Boolean.TRUE, LocalDateTime.now());
             klijent2.setRoles(adminClientRoles);
 
-            userRepository.saveAll(List.of(admin, klijent, klijent2));
+            User clientCareUser1=new User("Lamija", "Drkic", "ldrkic1@gmail.com", "ldrkic1","1PassworD1*", Boolean.TRUE, LocalDateTime.now());
+            clientCareUser1.setRoles(clientRoles);
+
+            User clientCareUser2=new User("Mujo", "Mujic", "mujo@gmail.com", "mmujic2","1PassworD1*", Boolean.TRUE, LocalDateTime.now());
+            clientCareUser2.setRoles(clientRoles);
+
+            User clientCareUser3=new User("Niko", "Nikic", "niko@gmail.com", "nnikic123","1PassworD1*", Boolean.TRUE, LocalDateTime.now());
+            clientCareUser3.setRoles(adminClientRoles);
+
+            User clientCareUser4=new User("Admin", "Admin", "admin@gmail.com", "aadmin21","1PassworD1*", Boolean.TRUE, LocalDateTime.now());
+            clientCareUser4.setRoles(adminRoles);
+
+            User reservationUser1=new User("Goran", "Gotovac", "goran@gmail.com", "goran","1PassworD1*", Boolean.TRUE, LocalDateTime.now());
+            reservationUser1.setRoles(clientRoles);
+
+            User reservationUser2=new User("Niko", "Nikic", "niko123@gmail.com", "niko123","1PassworD1*", Boolean.TRUE, LocalDateTime.now());
+            reservationUser2.setRoles(clientRoles);
+
+            User reservationUser3=new User("Mujo", "Mujic", "mmujic@gmail.com", "mujo55","1PassworD1*", Boolean.TRUE, LocalDateTime.now());
+            reservationUser3.setRoles(clientRoles);
+
+            userRepository.saveAll(List.of(admin, klijent, klijent2, clientCareUser1, clientCareUser2, clientCareUser3, clientCareUser4, reservationUser1, reservationUser2, reservationUser3));
 
         };
     }

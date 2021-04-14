@@ -1,5 +1,6 @@
 package ba.unsa.etf.clientcaremicroservice.Controller;
 import ba.unsa.etf.clientcaremicroservice.Model.*;
+import ba.unsa.etf.clientcaremicroservice.Repository.UserRepository;
 import ba.unsa.etf.clientcaremicroservice.RoleName;
 import ba.unsa.etf.clientcaremicroservice.Service.ReviewService;
 import ba.unsa.etf.clientcaremicroservice.Service.UserService;
@@ -29,6 +30,8 @@ public class ReviewControllerTest {
     private MockMvc mockMvc;
     @Autowired
     private UserService userService;
+    @Autowired
+    private UserRepository userRepository;
 
     @Test
     public void allReviews() throws Exception {
@@ -40,8 +43,8 @@ public class ReviewControllerTest {
 
 
     @BeforeAll
-    public void getReviewById () throws Exception {
-        mockMvc.perform( get("/review?id=1")
+    public void getReviewById() throws Exception {
+        mockMvc.perform(get("/review?id=1")
                 .accept(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isOk())
@@ -49,8 +52,8 @@ public class ReviewControllerTest {
     }
 
     @Test
-    public void getReviewById2 () throws Exception {
-        mockMvc.perform( get("/review?id=5")
+    public void getReviewById2() throws Exception {
+        mockMvc.perform(get("/review?id=5")
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound())
                 .andExpect(jsonPath("$.message").value("Review with id: 5 doesn't exist."));
@@ -58,17 +61,17 @@ public class ReviewControllerTest {
 
     @Test
     public void allClientReviews() throws Exception {
-        mockMvc.perform(get("/review/client?clientID=2")
+        mockMvc.perform(get("/review/client?clientID=4")
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
 
     @Test
     public void allClientReviews2() throws Exception {
-        mockMvc.perform(get("/review/client?clientID=1")
+        mockMvc.perform(get("/review/client?clientID=7")
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$.message").value("User with id: 1 isn't client."));
+                .andExpect(jsonPath("$.message").value("User with id: 7 isn't client."));
     }
 
     @Test
@@ -114,12 +117,16 @@ public class ReviewControllerTest {
                 .content(json2))
                 .andExpect(status().isNotAcceptable())
                 .andExpect(jsonPath("$.message").value("Review is required."));
-        String json3 = "{ \"title\": \" naslov \",\"review\": \"Tekst recenzije\", \"user\": { \"username\": \"ldrkic\"} }";
+    }
+
+    @Test
+    public void addReviewCommunicationTest() throws Exception {
+        String json3 = "{ \"title\": \" naslov \",\"review\": \"Tekst recenzije\", \"user\": { \"username\": \"irmaaaa\"} }";
         mockMvc.perform(post("/review/newReview")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(json3))
                 .andExpect(status().isNotFound())
-                .andExpect(jsonPath("$.message").value("Cilent ldrkic doesn't exist."));
-    }
+                .andExpect(jsonPath("$.message").value("There is no client with username: irmaaaa"));
 
+    }
 }

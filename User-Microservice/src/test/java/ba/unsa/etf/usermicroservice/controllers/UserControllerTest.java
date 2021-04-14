@@ -152,16 +152,16 @@ public class UserControllerTest {
     }
     @Test
     public void delete2() throws Exception {
-        mockMvc.perform(delete("/users?id=9")
+        mockMvc.perform(delete("/users?id=900")
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound())
-                .andExpect(jsonPath("$.message").value("User with id: 9 doesn't exist."));
+                .andExpect(jsonPath("$.message").value("User with id: 900 doesn't exist."));
 
     }
 
     @Test
     public void deleteUser() throws Exception {
-        mockMvc.perform(delete("/users?id=3")
+        mockMvc.perform(delete("/users?id=2")
                 .accept(MediaType.TEXT_PLAIN))
                 .andExpect(status().isOk());
     }

@@ -68,7 +68,7 @@ public class QuestionControllerTest {
 
     @Test
     public void allClientQuestions() throws Exception {
-        mockMvc.perform(get("/question/client?clientID=2")
+        mockMvc.perform(get("/question/client?clientID=6")
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
@@ -125,7 +125,7 @@ public class QuestionControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(json3))
                 .andExpect(status().isNotFound())
-                .andExpect(jsonPath("$.message").value("Client ldrkic doesn't exist."));
+                .andExpect(jsonPath("$.message").value("There is no client with username: ldrkic"));
 
     }
 }

@@ -5,7 +5,9 @@ import ba.unsa.etf.clientcaremicroservice.Exception.ValidationException;
 import ba.unsa.etf.clientcaremicroservice.Model.Review;
 import ba.unsa.etf.clientcaremicroservice.Model.Role;
 import ba.unsa.etf.clientcaremicroservice.Model.User;
+import ba.unsa.etf.clientcaremicroservice.Repository.UserRepository;
 import ba.unsa.etf.clientcaremicroservice.RoleName;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +29,8 @@ public class ReviewServiceTest {
     @Autowired
     UserService userService;
 
+    @Autowired
+    UserRepository userRepository;
     @Test
     public void getAllReviewsTest() {
         assertEquals(2, reviewService.getReviews(null).size());
@@ -35,13 +39,13 @@ public class ReviewServiceTest {
 
     @Test
     public void getClientReviewsTest() {
-        assertDoesNotThrow(() -> reviewService.getClientReviews(2L));
+        assertDoesNotThrow(() -> reviewService.getClientReviews(4L));
         assertThrows(
                 ApiRequestException.class,
-                () -> reviewService.getClientReviews(1L));
+                () -> reviewService.getClientReviews(7L));
         assertThrows(
                 NotFoundException.class,
-                () -> reviewService.getClientReviews(6L));
+                () -> reviewService.getClientReviews(900L));
     }
 
     @Test
@@ -55,11 +59,11 @@ public class ReviewServiceTest {
     @Test
     public void addReviewTest() {
         Review review = new Review();
-        User user = userService.getUserById(1L).get();
+        User user = userService.getUserById(7L).get();
         review.setUser(user);
         //user nije klijent
         assertThrows(
-                ApiRequestException.class,
+                ValidationException.class,
                 () -> reviewService.addReview(review));
         //klijent ne postoji
         user = new User();
@@ -70,7 +74,7 @@ public class ReviewServiceTest {
         assertThrows(
                 NotFoundException.class,
                 () -> reviewService.addReview(review));
-        user = userService.getUserById(2L).get();
+        user = userService.getUserById(4L).get();
         review.setUser(user);
         assertThrows(
                 ValidationException.class,
@@ -83,6 +87,25 @@ public class ReviewServiceTest {
         assertDoesNotThrow(() -> reviewService.addReview(review));
         assertEquals(3, reviewService.getReviews(null).size());
         reviewService.deleteReviewById(3L);
+    }
+
+    @Test
+    public void addReviewCommunicationTest() throws JsonProcessingException {
+        int sizeBefore=userRepository.findAll().size();
+        Review review = new Review();
+        review.setTitle("Naslov");
+        review.setReview("Recenzijaa");
+        User user=new User();
+        user.setUsername("ldrkic1");
+        review.setUser(user);
+        assertDoesNotThrow(() -> reviewService.addReview(review));
+        //vec postoji user pa velicina ostaje ista
+        assertEquals(sizeBefore, userRepository.findAll().size());
+        user.setUsername("irma");
+        review.setUser(user);
+        reviewService.addReview(review);
+        assertEquals(sizeBefore+1, userRepository.findAll().size());
+        reviewService.deleteReviewById(4L);
     }
 
     @Test

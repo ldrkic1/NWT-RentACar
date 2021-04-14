@@ -65,6 +65,7 @@ public class UserController {
     public Optional<User> findClientByUsername(@RequestParam(value = "username") String username){
         return userService.getClientByUsername(username);
     }
+
     @GetMapping("/admin")
     public Optional<User> findAdminByUsername(@RequestParam(value = "username") String username){
         return userService.getAdminByUsername(username);
