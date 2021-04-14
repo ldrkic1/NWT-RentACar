@@ -39,10 +39,11 @@ public final class SystemEvent {
       "\n\010response\030\005 \001(\t\022\022\n\nidKorisnik\030\006 \001(\003\"S\n\023" +
       "SystemEventResponse\022\027\n\017responseContent\030\001" +
       " \001(\t\022#\n\014responseType\030\002 \001(\0162\r.ResponseTyp" +
-      "e*&\n\014ResponseType\022\013\n\007SUCCESS\020\000\022\t\n\005ERROR\020" +
-      "\0012A\n\006action\0227\n\tlogAction\022\024.SystemEventsR" +
-      "equest\032\024.SystemEventResponseB\024\n\020ba.unsa." +
-      "etf.grpcP\001b\006proto3"
+      "e*9\n\nActionType\022\n\n\006CREATE\020\000\022\n\n\006UPDATE\020\001\022" +
+      "\n\n\006DELETE\020\002\022\007\n\003GET\020\003*&\n\014ResponseType\022\013\n\007" +
+      "SUCCESS\020\000\022\t\n\005ERROR\020\0012A\n\006action\0227\n\tlogAct" +
+      "ion\022\024.SystemEventsRequest\032\024.SystemEventR" +
+      "esponseB\024\n\020ba.unsa.etf.grpcP\001b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

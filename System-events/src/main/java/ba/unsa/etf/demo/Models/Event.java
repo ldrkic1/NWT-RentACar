@@ -14,7 +14,7 @@ public class Event {
 
     private String timeStamp;
     private String microservice;
-    private String action;
+    private Integer action;
     private String resource;
     private String response;
     private Long idKorisnik;
@@ -24,7 +24,7 @@ public class Event {
 
     }
 
-    public Event(String timeStamp, String microservice, String action, String resource, String response, Long idKorisnik) {
+    public Event(String timeStamp, String microservice, Integer action, String resource, String response, Long idKorisnik) {
         this.timeStamp = timeStamp;
         this.microservice = microservice;
         this.action = action;
@@ -57,11 +57,11 @@ public class Event {
         this.microservice = microservice;
     }
 
-    public String getAction() {
+    public Integer getAction() {
         return action;
     }
 
-    public void setAction(String action) {
+    public void setAction(Integer action) {
         this.action = action;
     }
 

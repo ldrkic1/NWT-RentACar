@@ -4,29 +4,45 @@
 package ba.unsa.etf.grpc;
 
 /**
- * Protobuf enum {@code ResponseType}
+ * Protobuf enum {@code ActionType}
  */
-public enum ResponseType
+public enum ActionType
     implements com.google.protobuf.ProtocolMessageEnum {
   /**
-   * <code>SUCCESS = 0;</code>
+   * <code>CREATE = 0;</code>
    */
-  SUCCESS(0),
+  CREATE(0),
   /**
-   * <code>ERROR = 1;</code>
+   * <code>UPDATE = 1;</code>
    */
-  ERROR(1),
+  UPDATE(1),
+  /**
+   * <code>DELETE = 2;</code>
+   */
+  DELETE(2),
+  /**
+   * <code>GET = 3;</code>
+   */
+  GET(3),
   UNRECOGNIZED(-1),
   ;
 
   /**
-   * <code>SUCCESS = 0;</code>
+   * <code>CREATE = 0;</code>
    */
-  public static final int SUCCESS_VALUE = 0;
+  public static final int CREATE_VALUE = 0;
   /**
-   * <code>ERROR = 1;</code>
+   * <code>UPDATE = 1;</code>
    */
-  public static final int ERROR_VALUE = 1;
+  public static final int UPDATE_VALUE = 1;
+  /**
+   * <code>DELETE = 2;</code>
+   */
+  public static final int DELETE_VALUE = 2;
+  /**
+   * <code>GET = 3;</code>
+   */
+  public static final int GET_VALUE = 3;
 
 
   public final int getNumber() {
@@ -43,7 +59,7 @@ public enum ResponseType
    * @deprecated Use {@link #forNumber(int)} instead.
    */
   @java.lang.Deprecated
-  public static ResponseType valueOf(int value) {
+  public static ActionType valueOf(int value) {
     return forNumber(value);
   }
 
@@ -51,23 +67,25 @@ public enum ResponseType
    * @param value The numeric wire value of the corresponding enum entry.
    * @return The enum associated with the given numeric wire value.
    */
-  public static ResponseType forNumber(int value) {
+  public static ActionType forNumber(int value) {
     switch (value) {
-      case 0: return SUCCESS;
-      case 1: return ERROR;
+      case 0: return CREATE;
+      case 1: return UPDATE;
+      case 2: return DELETE;
+      case 3: return GET;
       default: return null;
     }
   }
 
-  public static com.google.protobuf.Internal.EnumLiteMap<ResponseType>
+  public static com.google.protobuf.Internal.EnumLiteMap<ActionType>
       internalGetValueMap() {
     return internalValueMap;
   }
   private static final com.google.protobuf.Internal.EnumLiteMap<
-      ResponseType> internalValueMap =
-        new com.google.protobuf.Internal.EnumLiteMap<ResponseType>() {
-          public ResponseType findValueByNumber(int number) {
-            return ResponseType.forNumber(number);
+      ActionType> internalValueMap =
+        new com.google.protobuf.Internal.EnumLiteMap<ActionType>() {
+          public ActionType findValueByNumber(int number) {
+            return ActionType.forNumber(number);
           }
         };
 
@@ -81,12 +99,12 @@ public enum ResponseType
   }
   public static final com.google.protobuf.Descriptors.EnumDescriptor
       getDescriptor() {
-    return ba.unsa.etf.grpc.SystemEvent.getDescriptor().getEnumTypes().get(1);
+    return ba.unsa.etf.grpc.SystemEvent.getDescriptor().getEnumTypes().get(0);
   }
 
-  private static final ResponseType[] VALUES = values();
+  private static final ActionType[] VALUES = values();
 
-  public static ResponseType valueOf(
+  public static ActionType valueOf(
       com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
     if (desc.getType() != getDescriptor()) {
       throw new java.lang.IllegalArgumentException(
@@ -100,10 +118,10 @@ public enum ResponseType
 
   private final int value;
 
-  private ResponseType(int value) {
+  private ActionType(int value) {
     this.value = value;
   }
 
-  // @@protoc_insertion_point(enum_scope:ResponseType)
+  // @@protoc_insertion_point(enum_scope:ActionType)
 }
 

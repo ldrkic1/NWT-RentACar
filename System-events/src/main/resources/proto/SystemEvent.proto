@@ -10,6 +10,12 @@ message SystemEventsRequest {
   string response = 5;
   int64 idKorisnik = 6;
 }
+enum ActionType {
+  CREATE = 0;
+  UPDATE = 1;
+  DELETE = 2;
+  GET = 3;
+}
 enum ResponseType {
   SUCCESS = 0;
   ERROR = 1;
