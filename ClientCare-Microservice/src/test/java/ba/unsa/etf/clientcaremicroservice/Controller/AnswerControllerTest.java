@@ -64,12 +64,12 @@ public class AnswerControllerTest {
                 .content(json))
                 .andExpect(status().isBadRequest());
 
-        String json1 = "{ \"answer\": \"odgvovor na pitanje\", \"user\": { \"username\": \"ldrkic1\" } }";
+        String json1 = "{ \"answer\": \"odgvovor na pitanje\", \"user\": { \"username\": \"ldrkic\" } }";
         mockMvc.perform(post("/answer?questionID=3")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(json1))
-                .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$.message").value("User ldrkic1 isn't admin!"));
+                .andExpect(status().isNotFound())
+                .andExpect(jsonPath("$.message").value("There is no admin with username: ldrkic"));
     }
 
     @Test

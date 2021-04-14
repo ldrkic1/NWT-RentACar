@@ -7,6 +7,7 @@ import ba.unsa.etf.clientcaremicroservice.Model.Answer;
 import ba.unsa.etf.clientcaremicroservice.Model.User;
 import ba.unsa.etf.clientcaremicroservice.Model.Question;
 
+import ba.unsa.etf.clientcaremicroservice.Repository.UserRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.jupiter.api.BeforeAll;
@@ -28,6 +29,9 @@ public class AnswerServiceTest {
 
     @Autowired
     QuestionService questionService;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @BeforeAll
     private void addQuestion() {
@@ -59,7 +63,7 @@ public class AnswerServiceTest {
 
     @Test
     public void addAnswerOnQuestionTest() {
-        User user = userService.getUserById(2L).get();
+        User user = userService.getUserById(4L).get();
         Answer answer = new Answer();
         answer.setUser(user);
         Question question = questionService.getQuestionById(3L);
@@ -68,13 +72,7 @@ public class AnswerServiceTest {
                 ApiRequestException.class,
                 () -> answerService.addAnswerOnQuestion(answer, question.getId()));
         assertTrue(e.getMessage().contains("User ldrkic1 isn't admin!"));
-        user = new User("Nepostojeci","User","nuser123");
-        answer.setUser(user);
-        e = assertThrows(
-                NotFoundException.class,
-                () -> answerService.addAnswerOnQuestion(answer, question.getId()));
-        assertTrue(e.getMessage().contains("User nuser123 doesn't exist"));
-        user = userService.getUserById(1L).get();
+        user = userService.getUserById(7L).get();
         answer.setUser(user);
         e = assertThrows(
                 NotFoundException.class,
@@ -92,16 +90,15 @@ public class AnswerServiceTest {
         assertDoesNotThrow(() -> answerService.addAnswerOnQuestion(answer, question.getId()));
     }
 
-   @Test
+    @Test
     public void deleteAnswerTest() {
         Question question = new Question();
-        User user1 = userService.getUserById(2L).get();
-        question.setUser(user1);
+        User user1 = userService.getUserById(4L).get();
         question.setUser(user1);
         question.setTitle("Naslov");
         question.setQuestion("Novo pitanje?");
         questionService.addQuestion(question);
-        User user = userService.getUserById(1L).get();
+        User user = userService.getUserById(7L).get();
         Answer answer = new Answer();
         answer.setUser(user);
         answer.setAnswer("Odgovor");
@@ -112,4 +109,5 @@ public class AnswerServiceTest {
         assertTrue(e.getMessage().contains("Answer with id: 16 doesn't exist."));
         assertDoesNotThrow(() -> answerService.deleteAnswerById(a.getId()));
     }
+
 }

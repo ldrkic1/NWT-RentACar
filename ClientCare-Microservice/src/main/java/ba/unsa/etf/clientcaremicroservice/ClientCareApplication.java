@@ -21,8 +21,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
-import org.springframework.web.client.HttpClientErrorException;
-import org.springframework.web.client.RestTemplate;
+import org.springframework.web.client.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -167,46 +166,52 @@ public class ClientCareApplication {
 			User user4=getUserFromUserService("aadmin21");
 			userRepository.saveAll(List.of(user1, user2, user3, user4));*/
 			//reviews
+			try {
+				Review review1 = new Review("Odlična vozila", "Sve pohvale, koristila sam usluge rent a car kuće više puta. Sva vozila su nova, a osoblje je jako ljubazno.", getUserFromUserService("ldrkic1"));
+				Review review2 = new Review("Dugoročni najam", "Iskustvo naše kompanije sa RentACar agencijom je veoma pozitivno i to posebno u segmentu dugoročnog najma automobila. Sve pohvale!!", getUserFromUserService("mmujic2"));
+				reviewRepository.save(review1);
+				reviewRepository.save(review2);
 
-			Review review1 = new Review("Odlična vozila", "Sve pohvale, koristila sam usluge rent a car kuće više puta. Sva vozila su nova, a osoblje je jako ljubazno.", getUserFromUserService("ldrkic1"));
-			Review review2 = new Review("Dugoročni najam", "Iskustvo naše kompanije sa RentACar agencijom je veoma pozitivno i to posebno u segmentu dugoročnog najma automobila. Sve pohvale!!", getUserFromUserService("mmujic2"));
-			reviewRepository.save(review1);
-			reviewRepository.save(review2);
+				//questions
+				Question question1 = new Question();
+				question1.setTitle("Osiguranje automobila");
+				question1.setQuestion("Da li su svi automobili osigurani?");
+				question1.setUser(getUserFromUserService("mmujic2"));
+				question1.setAnswered(true);
+				Question question2 = new Question();
+				question2.setTitle("Duzina najma");
+				question2.setQuestion("Koja je minimalna duzina najma?");
+				question2.setUser(getUserFromUserService("ldrkic1"));
+				question2.setAnswered(true);
+				Question question3 = new Question();
+				question3.setTitle("Cijena najma");
+				question3.setQuestion("Koja je minimalna cijena najma?");
+				question3.setUser(getUserFromUserService("ldrkic1"));
+				Question question4 = new Question();
+				question4.setTitle("Duzina najma");
+				question4.setQuestion("Koja je maksimalna duzina najma?");
+				question4.setUser(getUserFromUserService("mmujic2"));
+				question4.setAnswered(false);
+				questionRepository.saveAll(List.of(question1, question2, question3, question4));
 
-			//questions
-			Question question1 = new Question();
-			question1.setTitle("Osiguranje automobila");
-			question1.setQuestion("Da li su svi automobili osigurani?");
-			question1.setUser(getUserFromUserService("mmujic2"));
-			question1.setAnswered(true);
-			Question question2 = new Question();
-			question2.setTitle("Duzina najma");
-			question2.setQuestion("Koja je minimalna duzina najma?");
-			question2.setUser(getUserFromUserService("ldrkic1"));
-			question2.setAnswered(true);
-			Question question3 = new Question();
-			question3.setTitle("Cijena najma");
-			question3.setQuestion("Koja je minimalna cijena najma?");
-			question3.setUser(getUserFromUserService("ldrkic1"));
-			Question question4 = new Question();
-			question4.setTitle("Duzina najma");
-			question4.setQuestion("Koja je maksimalna duzina najma?");
-			question4.setUser(getUserFromUserService("mmujic2"));
-			question4.setAnswered(false);
-			questionRepository.saveAll(List.of(question1, question2, question3, question4));
+				//answers
+				Answer answer1 = new Answer();
+				answer1.setQuestion(question1);
+				answer1.setUser(getUserFromUserService("aadmin21"));
+				answer1.setAnswer("Prema zakonu, svi automobili, svih agencija su kasko osigurani.");
 
-			//answers
-			Answer answer1 = new Answer();
-			answer1.setQuestion(question1);
-			answer1.setUser(getUserFromUserService("aadmin21"));
-			answer1.setAnswer("Prema zakonu, svi automobili, svih agencija su kasko osigurani.");
+				Answer answer2 = new Answer();
+				answer2.setQuestion(question2);
+				answer2.setUser(getUserFromUserService("aadmin21"));
+				answer2.setAnswer("Minimalna duzina najma vozila je 24h.");
 
-			Answer answer2 = new Answer();
-			answer2.setQuestion(question2);
-			answer2.setUser(getUserFromUserService("aadmin21"));
-			answer2.setAnswer("Minimalna duzina najma vozila je 24h.");
-
-			answerRepository.saveAll(List.of(answer1, answer2));
+				answerRepository.saveAll(List.of(answer1, answer2));
+			}
+			catch (ResourceAccessException exception) {
+				System.out.println("---------------------------------------------------");
+				System.out.println("Izuzetak");
+				System.out.println(exception.getMessage());
+			}
 		};
 
 	}

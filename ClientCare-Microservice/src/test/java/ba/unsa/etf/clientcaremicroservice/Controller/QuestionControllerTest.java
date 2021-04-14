@@ -68,17 +68,17 @@ public class QuestionControllerTest {
 
     @Test
     public void allClientQuestions() throws Exception {
-        mockMvc.perform(get("/question/client?clientID=6")
+        mockMvc.perform(get("/question/client?clientID=4")
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
 
     @Test
     public void allClienQuestion2() throws Exception {
-        mockMvc.perform(get("/question/client?clientID=1")
+        mockMvc.perform(get("/question/client?clientID=7")
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$.message").value("User with id: 1 isn't client."));
+                .andExpect(jsonPath("$.message").value("User with id: 7 isn't client."));
     }
 
     @Test

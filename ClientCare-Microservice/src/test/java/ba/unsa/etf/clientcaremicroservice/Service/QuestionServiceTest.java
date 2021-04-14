@@ -6,6 +6,7 @@ import ba.unsa.etf.clientcaremicroservice.Exception.ApiRequestException;
 import ba.unsa.etf.clientcaremicroservice.Exception.NotFoundException;
 import ba.unsa.etf.clientcaremicroservice.Exception.ValidationException;
 import ba.unsa.etf.clientcaremicroservice.Model.User;
+import ba.unsa.etf.clientcaremicroservice.Repository.UserRepository;
 import org.junit.Test;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.runner.RunWith;
@@ -23,6 +24,9 @@ public class QuestionServiceTest {
     @Autowired
     UserService userService;
 
+    @Autowired
+    UserRepository userRepository;
+
     @Test
     public void getAllQuestionsTest() {
         assertEquals(4, questionService.getQuestions(null).size());
@@ -37,20 +41,6 @@ public class QuestionServiceTest {
     @Test
     public void getUnansweredQuestionsTest() {
         assertEquals(2, questionService.getAllUnansweredQuestions().size());
-    }
-
-    @Test
-    public void getClientQuestionsTest() {
-        assertDoesNotThrow(() -> questionService.getClientQuestions(2L));
-        assertEquals(2, questionService.getClientQuestions(2L).size());
-        Exception exception = assertThrows(
-                ApiRequestException.class,
-                () -> questionService.getClientQuestions(1L));
-        assertTrue(exception.getMessage().contains("User with id: 1 isn't client."));
-        exception = assertThrows(
-                NotFoundException.class,
-                () -> questionService.getClientQuestions(6L));
-        assertTrue(exception.getMessage().contains("Client with id: 6 doesn't exist."));
     }
 
     @Test
@@ -81,14 +71,7 @@ public class QuestionServiceTest {
     @Test
     public void addQuestionTest() {
         Question question = new Question();
-        User user = userService.getUserById(1L).get();
-        question.setUser(user);
-        //user nije klijent
-        assertThrows(
-                ApiRequestException.class,
-                () -> questionService.addQuestion(question));
-        //klijent ne postoji
-        user = new User();
+        User user = new User();
         user.setFirstName("Lala");
         user.setLastName("Lalic");
         user.setUsername("llalic");
@@ -96,8 +79,8 @@ public class QuestionServiceTest {
         Exception e = assertThrows(
                 NotFoundException.class,
                 () -> questionService.addQuestion(question));
-        assertTrue(e.getMessage().contains("Client llalic doesn't exist."));
-        user = userService.getUserById(2L).get();
+        assertTrue(e.getMessage().contains("There is no client with username: llalic"));
+        user = userService.getUserById(4L).get();
         question.setUser(user);
         e = assertThrows(
                 ValidationException.class,
@@ -112,7 +95,24 @@ public class QuestionServiceTest {
 
         question.setQuestion("Novo pitanje?");
         assertDoesNotThrow(() -> questionService.addQuestion(question));
-        questionService.deleteQuestionById(5L);
+        questionService.deleteQuestionById(6L);
     }
+
+    @Test
+    public void addQuestionTest2() {
+        int numOfUsers = userRepository.findAll().size();
+        Question question = new Question();
+        User user = new User();
+        user.setUsername("irma");
+        question.setUser(user);
+        question.setUser(user);
+        question.setTitle("Naslov");
+        question.setQuestion("Novo pitanje?");
+        assertDoesNotThrow(() -> questionService.addQuestion(question));
+        questionService.deleteQuestionById(5L);
+        assertEquals(numOfUsers+1, userRepository.findAll().size());
+    }
+
+
 
 }

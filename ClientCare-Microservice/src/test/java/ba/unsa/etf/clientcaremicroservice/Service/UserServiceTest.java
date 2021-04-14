@@ -1,39 +1,5 @@
-package ba.unsa.etf.clientcaremicroservice.Service;
+/*package ba.unsa.etf.clientcaremicroservice.Service;
 
-/*import ba.unsa.etf.clientcaremicroservice.Model.Role;
-import ba.unsa.etf.clientcaremicroservice.Model.User;
-import ba.unsa.etf.clientcaremicroservice.RoleName;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
-
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
-
-import static org.junit.jupiter.api.Assertions.*;
-
-@RunWith(SpringRunner.class)
-@SpringBootTest
-public class UserServiceTest {
-
-    @Autowired
-    UserService userService;
-
-    @Test
-    public void getUserByIdTest() {
-        Optional<User> user = userService.getUserById(1L);
-        Optional<User> user1 = userService.getUserById(9L);
-
-        assertTrue(user.isPresent());
-        assertFalse(user1.isPresent());
-    }
-
-}*/
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Before;
 import org.junit.Test;
@@ -88,15 +54,5 @@ public class UserServiceTest {
         }
     }
 
-        /*@Test
-    public void getUserFromUserService() throws JsonProcessingException {
-        String url = "http://user-service/users/client?username=irma";
-        ResponseEntity<String> userResponse = restTemplate.getForEntity(url, String.class);
-        ObjectMapper mapper = new ObjectMapper();
-        JsonNode root = mapper.readTree(userResponse.getBody());
-        assertAll(
-                () -> assertEquals("Irma", root.path("firstName").asText()),
-                () -> assertEquals("Dedic", root.path("lastName").asText()),
-                () -> assertEquals("irma", root.path("username").asText()));
-    }*/
-}
+
+}*/
