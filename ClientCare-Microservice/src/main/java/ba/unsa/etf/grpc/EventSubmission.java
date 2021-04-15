@@ -27,7 +27,7 @@ public class EventSubmission {
 
             SystemEventResponse response=stub.logAction(SystemEventsRequest.newBuilder()
                     .setTimeStamp(ts)
-                    .setMicroservice("user-service")
+                    .setMicroservice("clientcare-service")
                     .setIdKorisnik(idKorisnik)
                     .setAction(tipAkcije.toString())
                     .setResource(nazivResursa)
