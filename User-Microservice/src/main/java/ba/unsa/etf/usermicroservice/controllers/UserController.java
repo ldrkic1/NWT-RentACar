@@ -61,6 +61,13 @@ public class UserController {
     public Optional<User> findUserByUsername(@RequestParam(value = "username") String username){
         return userService.getUserByUsername(username);
     }
+
+    @GetMapping("/userDTO")
+    public Optional<User> findUserDTOByUsername(@RequestParam(value = "username") String username){
+        System.out.println("u user ruti saaaam");
+        return userService.getUserDTO(username);
+    }
+
     @GetMapping("/client")
     public Optional<User> findClientByUsername(@RequestParam(value = "username") String username){
         return userService.getClientByUsername(username);
@@ -89,6 +96,7 @@ public class UserController {
     public Set<Role> getUsersRoles(@RequestParam(value = "id") Long id){
         return userService.getRolesForUser(id);
     }
+
     @GetMapping(value="/countUsers")
     public Long numberOfUsers(){
         return userService.numberOfUsers();}

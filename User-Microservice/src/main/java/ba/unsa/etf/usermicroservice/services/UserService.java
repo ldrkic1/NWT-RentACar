@@ -110,6 +110,17 @@ public class UserService {
 
     }
 
+    public Optional<User> getUserDTO(String username){
+        System.out.println("bazaaaa: "+username);
+        Optional<User>user=getUserByUsername(username);
+        user.get().setEnabled(null);
+        user.get().setLastActivity(LocalDateTime.of(1990, Month.MARCH, 29, 20, 30, 40));
+        user.get().setEmail(null);
+        user.get().setFirstName(null);
+        user.get().setLastName(null);
+        return user;
+    }
+
     public Optional<User> getUserByUsername(String username) {
         Optional<User>optionalUser=userRepository.findByUsername(username);
         if(!optionalUser.isPresent())throw new NotFoundException("User with username: "+ username+ " doesn't exist.");

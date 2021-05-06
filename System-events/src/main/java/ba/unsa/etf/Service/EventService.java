@@ -1,7 +1,7 @@
 package ba.unsa.etf.Service;
 
 import ba.unsa.etf.Repository.GrpcRepository;
-import ba.unsa.etf.demo.Models.Event;
+import ba.unsa.etf.Models.Event;
 import ba.unsa.etf.grpc.actionGrpc;
 import ba.unsa.etf.grpc.SystemEventResponse;
 import ba.unsa.etf.grpc.SystemEventsRequest;
@@ -20,11 +20,13 @@ public class EventService extends actionGrpc.actionImplBase {
 
     @Override
     public void logAction(SystemEventsRequest request, StreamObserver<SystemEventResponse> responseObserver) {
-
+        System.out.println("*** logAction ***");
         SystemEventResponse.Builder response =  SystemEventResponse.newBuilder();
         try {
-            Event event = new Event(request.getTimeStamp(), request.getMicroservice(), Integer.parseInt(request.getAction()),request.getResource(), request.getResponse(), request.getIdKorisnik());
+            Event event = new Event(request.getTimeStamp(), request.getMicroservice(), request.getAction(),request.getResource(), request.getResponse(), request.getIdKorisnik());
             //spasimo event u bazu
+            System.out.println("");
+            System.out.println(event.getResource() + " " + event.getMicroservice() + " " + event.getResponse());
             grpcRepository.save(event);
             response.setResponseContent("Event is saved").setResponseType(ResponseType.SUCCESS);
         }

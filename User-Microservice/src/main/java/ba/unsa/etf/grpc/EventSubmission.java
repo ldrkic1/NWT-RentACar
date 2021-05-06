@@ -6,6 +6,7 @@ import io.grpc.ManagedChannelBuilder;
 import com.netflix.appinfo.InstanceInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import java.util.Calendar;
@@ -15,6 +16,21 @@ public class EventSubmission {
     @Qualifier("eurekaClient")
     @Autowired
     private EurekaClient eurekaClient;
+
+    public ActionType action(String actionType){
+        switch (actionType){
+            case "GET":
+                return ActionType.GET;
+            case "POST":
+                return ActionType.CREATE;
+            case "PUT":
+                return ActionType.UPDATE;
+            case "DELETE":
+                return ActionType.DELETE;
+            default:
+                return null;
+        }
+    }
 
     public void addEvent(Long idKorisnik, ActionType tipAkcije, String nazivResursa) {
 

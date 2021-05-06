@@ -1,0 +1,65 @@
+package ba.unsa.etf.apigateway.config;
+
+import ba.unsa.etf.apigateway.filter.JwtRequestFilter;
+import ba.unsa.etf.apigateway.service.MyUserDetailsService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.http.HttpMethod;
+
+
+@EnableWebSecurity
+public class SecurityConfigurer extends WebSecurityConfigurerAdapter{
+
+    @Autowired
+    private MyUserDetailsService myUserDetailsService;
+
+    @Autowired
+    JwtRequestFilter jwtRequestFilter;
+
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(myUserDetailsService);
+    }
+
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http.csrf().disable()
+                .authorizeRequests().antMatchers(HttpMethod.GET,"/users/users/all", "/users/users/clients", "/users/users/admins", "/users/users/user", "/users/users/byUsername", "/users/users/userDTO", "/users/users/client", "/users/users/admin", "/users/users/byRole", "/users/users/roles", "/users/users/countUsers", "/users/users/countClients").hasRole("ADMIN")
+                .antMatchers(HttpMethod.POST, "/authenticate", "/users/users/newUser").permitAll()
+                .antMatchers(HttpMethod.DELETE, "/users/users").hasRole("ADMIN")
+                .antMatchers(HttpMethod.PUT, "/users/users/updateUser").hasAnyRole("ADMIN", "CLIENT")
+
+                .antMatchers(HttpMethod.GET, "/notifications/notifications/all", "/notifications/notifications/client", "/notifications/notifications/notification", "/notifications/notifications/between").hasRole("ADMIN")
+                .antMatchers(HttpMethod.GET, "/notifications/questionNotifications/newQuestionNotification", "/notifications/reservationNotifications/newReservationNotification").permitAll()
+                .antMatchers(HttpMethod.GET, "/notifications/questionNotifications/all", "/notifications/questionNotifications/client", "/notifications/questionNotifications/question", "/notifications/questionNotifications/questionNotification", "/notifications/questionNotifications/between").hasRole("ADMIN")
+                .antMatchers(HttpMethod.GET, "/notifications/reservationNotifications/all", "/notifications/reservationNotifications/client", "/notifications/reservationNotifications/reservation", "/notifications/reservationNotifications/reservationNotification", "/notifications/reservationNotifications/between").hasRole("ADMIN")
+
+                .anyRequest().authenticated()
+                .and()
+                .sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+
+        http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+    }
+    @Bean
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder(){
+        return NoOpPasswordEncoder.getInstance();
+    }
+}
