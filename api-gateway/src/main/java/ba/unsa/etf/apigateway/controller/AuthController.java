@@ -2,6 +2,7 @@ package ba.unsa.etf.apigateway.controller;
 
 
 import ba.unsa.etf.apigateway.RoleName;
+import ba.unsa.etf.apigateway.exception.ValidationException;
 import ba.unsa.etf.apigateway.model.AuthenticationResponse;
 import ba.unsa.etf.apigateway.model.Role;
 import ba.unsa.etf.apigateway.service.MyUserDetailsService;
@@ -50,7 +51,7 @@ public class AuthController {
         }
 
         catch(BadCredentialsException e){
-            throw new Exception("Netačan username ili šifra!");
+            throw new ValidationException("Incorrect username or password");
         }
         final UserDetails userDetails = myUserDetailsService.loadUserByUsername(authReq.getUsername());
         final String token = jwt.generateToken(userDetails);

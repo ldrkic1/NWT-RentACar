@@ -45,6 +45,12 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter{
                 .antMatchers(HttpMethod.GET, "/notifications/questionNotifications/all", "/notifications/questionNotifications/client", "/notifications/questionNotifications/question", "/notifications/questionNotifications/questionNotification", "/notifications/questionNotifications/between").hasRole("ADMIN")
                 .antMatchers(HttpMethod.GET, "/notifications/reservationNotifications/all", "/notifications/reservationNotifications/client", "/notifications/reservationNotifications/reservation", "/notifications/reservationNotifications/reservationNotification", "/notifications/reservationNotifications/between").hasRole("ADMIN")
 
+                .antMatchers(HttpMethod.GET,"/clientcares/review/all","/clientcares/question/all","/clientcares/answer/all").permitAll()
+                .antMatchers(HttpMethod.POST,"/clientcares/review/newReview","/clientcares/question/newQuestion").hasRole("CLIENT")
+                .antMatchers(HttpMethod.DELETE,"/clientcares/review","/clientcares/question","/clientcares/answer").hasRole("ADMIN")
+                .antMatchers(HttpMethod.GET,"/clientcares/question/unanswered","/clientcares/question/answered","/clientcares/review","/clientcares/question","/clientcares/answer").hasRole("ADMIN")
+                .antMatchers(HttpMethod.POST,"/clientcares/answer").hasRole("ADMIN")
+
                 .anyRequest().authenticated()
                 .and()
                 .sessionManagement()

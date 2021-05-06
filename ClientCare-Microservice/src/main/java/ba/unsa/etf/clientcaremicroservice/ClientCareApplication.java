@@ -3,16 +3,23 @@ package ba.unsa.etf.clientcaremicroservice;
 import ba.unsa.etf.clientcaremicroservice.Exception.NotFoundException;
 import ba.unsa.etf.clientcaremicroservice.Model.*;
 import ba.unsa.etf.clientcaremicroservice.Repository.*;
+import ba.unsa.etf.grpc.SystemEventResponse;
+import ba.unsa.etf.grpc.SystemEventsRequest;
+import ba.unsa.etf.grpc.actionGrpc;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.netflix.appinfo.InstanceInfo;
+import com.netflix.discovery.EurekaClient;
 import com.netflix.discovery.shared.Application;
 import com.netflix.discovery.shared.Applications;
 import com.netflix.eureka.EurekaServerContextHolder;
 import com.netflix.eureka.registry.PeerAwareInstanceRegistry;
+import io.grpc.ManagedChannel;
+import io.grpc.ManagedChannelBuilder;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -34,6 +41,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
+
+import java.util.Calendar;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -50,6 +59,10 @@ public class ClientCareApplication {
 	RoleRepository roleRepository;
 	@Autowired
 	private RestTemplate restTemplate;
+
+	@Qualifier("eurekaClient")
+	@Autowired
+	private EurekaClient eurekaClient;
 
 	public static void main(String[] args) {
 		SpringApplication.run(ClientCareApplication.class, args);
@@ -124,6 +137,18 @@ public class ClientCareApplication {
 				System.out.println("***** Exception");
 				JSONObject json = new JSONObject(exception.getResponseBodyAsString());
 				throw new NotFoundException(json.get("message").toString());
+			}
+			catch (IllegalStateException exception) {
+				System.out.println("---------------------------------------------------");
+				System.out.println("Izuzetak");
+				System.out.println(exception.getMessage());
+				throw exception;
+			}
+			catch (ResourceAccessException exception) {
+				System.out.println("---------------------------------------------------");
+				System.out.println("Izuzetak");
+				System.out.println(exception.getMessage());
+				throw exception;
 			}
 		}
 	}
@@ -207,10 +232,26 @@ public class ClientCareApplication {
 
 				answerRepository.saveAll(List.of(answer1, answer2));
 			}
-			catch (ResourceAccessException exception) {
+			catch (Exception exception) {
 				System.out.println("---------------------------------------------------");
 				System.out.println("Izuzetak");
 				System.out.println(exception.getMessage());
+
+				InstanceInfo instanceInfo = eurekaClient.getNextServerFromEureka("system-events", false);
+				ManagedChannel channel = ManagedChannelBuilder.forAddress(instanceInfo.getIPAddr(), 8091).usePlaintext().build();
+				actionGrpc.actionBlockingStub stub=actionGrpc.newBlockingStub(channel);
+				Calendar c=Calendar.getInstance();
+				String ts=c.getTime().toString();
+				SystemEventResponse response=stub.logAction(SystemEventsRequest.newBuilder()
+						.setTimeStamp(ts)
+						.setMicroservice("clientcare-service")
+						.setIdKorisnik(1)
+						.setAction("COMMUNICATION")
+						.setResource(exception.getMessage())
+						.setResponse("500")
+						.build());
+				System.out.println(response.getResponseTypeValue());
+				channel.shutdown();
 			}
 		};
 

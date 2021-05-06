@@ -17,6 +17,9 @@ zuul:
     notification:
       path: /notifications/**
       url: http://localhost:8086/
+    clientcare:
+      path: /clientcares/**
+      url: http://localhost:8087/
 
 # eureka
 eureka:
