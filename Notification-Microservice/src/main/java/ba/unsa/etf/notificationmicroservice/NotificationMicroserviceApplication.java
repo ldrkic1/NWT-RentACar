@@ -46,6 +46,9 @@ public class NotificationMicroserviceApplication {
     @Autowired
     private QuestionRepository questionRepository;
 
+    @Autowired
+    private QuestionNotificationRepository questionNotificationRepository;
+
     public static void main(String[] args) {
         SpringApplication.run(NotificationMicroserviceApplication.class, args);
     }
@@ -92,7 +95,9 @@ public class NotificationMicroserviceApplication {
                 user.setRoles(roleSet);
                 questionDTOList.add(new QuestionDTO(question, user));
                 userRepository.save(user);
-                questionRepository.save(question);
+                //questionRepository.save(question);
+                QuestionNotification qn1 = new QuestionNotification("Title", "Content", LocalDateTime.now(), user, question);
+                questionNotificationRepository.save(qn1);
 
             });
 

@@ -6,6 +6,8 @@ import ba.unsa.etf.notificationmicroservice.models.Question;
 import ba.unsa.etf.notificationmicroservice.models.QuestionNotification;
 import ba.unsa.etf.notificationmicroservice.models.Role;
 import ba.unsa.etf.notificationmicroservice.models.User;
+import ba.unsa.etf.notificationmicroservice.repositories.QuestionNotificationRepository;
+import ba.unsa.etf.notificationmicroservice.repositories.QuestionRepository;
 import ba.unsa.etf.notificationmicroservice.repositories.RoleRepository;
 import ba.unsa.etf.notificationmicroservice.repositories.UserRepository;
 import ba.unsa.etf.notificationmicroservice.services.QuestionNotificationService;
@@ -27,12 +29,17 @@ public class Receiver {
     @Autowired
     QuestionNotificationService questionNotificationService;
 
-
     @Autowired
     UserRepository userRepository;
 
     @Autowired
     RoleRepository roleRepository;
+
+    @Autowired
+    QuestionRepository questionRepository;
+
+    @Autowired
+    QuestionNotificationRepository questionNotificationRepository;
 
     @RabbitListener(queues = Config.QUEUE)
     public void consumeMessageFromQueue(QuestionDTO questionDTO) {
@@ -65,8 +72,7 @@ public class Receiver {
         question2.setQuestionNotification(questionNotification);
         questionNotification.setQuestion(question2);
         questionNotification.setUser(user);
-        questionNotificationService.addQuestionNotification(questionNotification);
-
+        questionNotificationRepository.save(questionNotification);
     }
 
 }
