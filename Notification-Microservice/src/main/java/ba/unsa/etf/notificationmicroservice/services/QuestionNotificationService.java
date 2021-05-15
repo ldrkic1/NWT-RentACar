@@ -40,6 +40,8 @@ public class QuestionNotificationService {
             throw new ValidationException("Notification title is empty");
 
         Optional<User> user = userRepository.findByUsername(questionNotification.getUser().getUsername());
+        System.out.println("***********************poslije findUsername"+ questionNotification.getUser().getUsername());
+        System.out.println("***********************bazaaaa"+ userRepository.findAll().size());
         if (user.isPresent()) {
             //if (doesContain(user.get(), ROLE_CLIENT)) {
             if (userRepository.doesExistRoleName(user.get().getId()) != null) {
@@ -47,9 +49,11 @@ public class QuestionNotificationService {
 
             } else
                 throw new ApiRequestException(questionNotification.getUser().getFirstName() + " " + questionNotification.getUser().getLastName() + " isn't client.");
-        } else
+        } else {
+            System.out.println("***********************client ne postoji");
             throw new NotFoundException("Client with username: " + questionNotification.getUser().getUsername() + " doesn't exist.");
 
+        }
         //questionNotification.setUser(user.get());
         Optional<Question> question = questionRepository.findById(questionNotification.getQuestion().getId());
         System.out.println("00000000000"+questionNotification.getQuestion().getId());

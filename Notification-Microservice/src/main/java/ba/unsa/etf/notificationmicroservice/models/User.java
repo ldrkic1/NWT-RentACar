@@ -18,7 +18,8 @@ public class User {
     private String username;
     private String firstName;
     private String lastName;
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    //@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST }, fetch = FetchType.LAZY)
     @JoinTable(
             name = "users_roles",
             joinColumns = @JoinColumn(name = "user_id"),

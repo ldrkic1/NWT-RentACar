@@ -1,4 +1,5 @@
 package ba.unsa.etf.clientcaremicroservice.Controller;
+import ba.unsa.etf.clientcaremicroservice.DTO.QuestionDTO;
 import ba.unsa.etf.clientcaremicroservice.RabbitMQ.Config;
 import ba.unsa.etf.clientcaremicroservice.Service.QuestionService;
 import ba.unsa.etf.clientcaremicroservice.Model.Question;
@@ -54,8 +55,8 @@ public class QuestionController {
         //Producer producer = null;
         Question q =questionService.addQuestion(question);
         //producer.send(q.getId().toString());
-
-        rabbitTemplate.convertAndSend(Config.EXCHANGE, Config.ROUTING_KEY,q);
+        QuestionDTO questionDTO=new QuestionDTO(q, q.getUser());
+        rabbitTemplate.convertAndSend(Config.EXCHANGE, Config.ROUTING_KEY,questionDTO);
         return q;
     }
 
