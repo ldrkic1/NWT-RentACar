@@ -1,7 +1,8 @@
 package ba.unsa.etf.clientcaremicroservice.Controller;
-import ba.unsa.etf.clientcaremicroservice.Model.Review;
+import ba.unsa.etf.clientcaremicroservice.RabbitMQ.Config;
 import ba.unsa.etf.clientcaremicroservice.Service.QuestionService;
 import ba.unsa.etf.clientcaremicroservice.Model.Question;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,6 +13,10 @@ import java.util.List;
 public class QuestionController {
     @Autowired
     private QuestionService questionService;
+
+
+    @Autowired
+    RabbitTemplate rabbitTemplate;
 
     @GetMapping(path = "/all")
     public List<Question> getQuestions(@RequestParam(value = "title", required = false) String title) {
@@ -46,7 +51,12 @@ public class QuestionController {
     //dodavanje novog pitanja
     @PostMapping(path = "/newQuestion")
     public Question addQuestion(@RequestBody Question question) {
-        return questionService.addQuestion(question);
+        //Producer producer = null;
+        Question q =questionService.addQuestion(question);
+        //producer.send(q.getId().toString());
+
+        rabbitTemplate.convertAndSend(Config.EXCHANGE, Config.ROUTING_KEY,q);
+        return q;
     }
 
 }

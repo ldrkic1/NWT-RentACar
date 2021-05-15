@@ -20,6 +20,9 @@ zuul:
     clientcare:
       path: /clientcares/**
       url: http://localhost:8087/
+    vehicle:
+      path: /vehicles/**
+      url: http://localhost:8088/
 
 # eureka
 eureka:
