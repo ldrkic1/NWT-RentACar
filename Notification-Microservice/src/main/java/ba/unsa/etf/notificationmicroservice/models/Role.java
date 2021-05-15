@@ -12,7 +12,7 @@ import javax.persistence.*;
     @Table
     public class Role {
         @Id
-        @GeneratedValue
+        //@GeneratedValue
         private Integer id;
         @Enumerated(EnumType.STRING)
         private RoleName roleName;
@@ -23,6 +23,11 @@ import javax.persistence.*;
 
         public Role() {
 
+        }
+
+        public Role(Integer id, RoleName roleName) {
+            this.id = id;
+            this.roleName = roleName;
         }
 
         public Integer getId() {
