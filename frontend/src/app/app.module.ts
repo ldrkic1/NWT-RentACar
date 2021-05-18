@@ -8,6 +8,8 @@ import { HomeComponent } from './home';
 import { VehicleComponent } from './vehicle';
 import { ReviewComponent } from './review';
 import { FaqComponent } from './faq';
+import { ReviewService } from './review/review.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -19,9 +21,10 @@ import { FaqComponent } from './faq';
   ],
   imports: [
     BrowserModule,
-    appRoutingModule
+    appRoutingModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [ReviewService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
