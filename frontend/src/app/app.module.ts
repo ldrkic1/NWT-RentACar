@@ -10,6 +10,7 @@ import { ReviewComponent } from './review';
 import { FaqComponent } from './faq';
 import { ReviewService } from './review/review.service';
 import { HttpClientModule } from '@angular/common/http';
+import { QuestionService } from './faq/faq.service';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,7 @@ import { HttpClientModule } from '@angular/common/http';
     appRoutingModule,
     HttpClientModule
   ],
-  providers: [ReviewService],
+  providers: [ReviewService,QuestionService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
