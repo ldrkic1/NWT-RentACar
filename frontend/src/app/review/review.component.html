@@ -2,16 +2,17 @@
   <link href="review.component.css" rel="stylesheet">
 </head>
 <div class="container" id="main-container">
-  <div class="mgb-40 padb-30 auto-invert line-b-4 align-center">
-      <h4 class="font-cond-l fg-accent lts-md mgb-10" contenteditable="false">Not Yet Convinced?</h4>
-      <h1 class="font-cond-b fg-text-d lts-md fs-300 fs-300-xs no-mg" contenteditable="false">Read Customer Reviews</h1>
-  </div>
+ 
   <br>
  
  
 
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 <div class="container">
+  <div class="mgb-40 padb-30 auto-invert line-b-4 align-center">
+    <h4 class="font-cond-l fg-accent lts-md mgb-10" contenteditable="false">Not Yet Convinced?</h4>
+    <h1 class="font-cond-b fg-text-d lts-md fs-300 fs-300-xs no-mg" contenteditable="false">Read Customer Reviews</h1>
+</div>
 <div class="row" *ngFor="let review of reviews" >
     <div class="col-md-8">
         <div class="media g-mb-30 media-comment">
@@ -31,13 +32,11 @@
 
 
 </div>
+<br>
+<button data-toggle="modal" data-target="#myModal" type="button" class="btn btn-secondary btn-lg">Add review</button>
 </div>
 
 
-
-<br>
- 
-    <button data-toggle="modal" data-target="#myModal" type="button" class="btn btn-secondary  btn-block">Add review</button>
 
 </div>
    <!-- Modal -->
