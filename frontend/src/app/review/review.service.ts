@@ -26,4 +26,8 @@ export class ReviewService{
         console.log(review);
         return this.http.post<Review>(`${this.apiServerUrl}/clientcares/review/newReview`, review);
       }
+
+      public deleteReview(reviewId: number): Observable<any> {
+        return this.http.delete<any>(`${this.apiServerUrl}/clientcares/review?id=${reviewId}`);
+      }
 }

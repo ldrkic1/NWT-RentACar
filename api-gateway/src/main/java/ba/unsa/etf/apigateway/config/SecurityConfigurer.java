@@ -50,7 +50,7 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter{
                 .antMatchers(HttpMethod.GET,"/clientcares/review/all","/clientcares/question/all","/clientcares/answer/all").permitAll()
                 //.antMatchers(HttpMethod.POST,"/clientcares/review/newReview","/clientcares/question/newQuestion").hasRole("CLIENT")
                 .antMatchers(HttpMethod.POST,"/clientcares/review/newReview","/clientcares/question/newQuestion").permitAll()
-                .antMatchers(HttpMethod.DELETE,"/clientcares/review","/clientcares/question","/clientcares/answer").hasRole("ADMIN")
+                .antMatchers(HttpMethod.DELETE,"/clientcares/review","/clientcares/question","/clientcares/answer").permitAll()
                 .antMatchers(HttpMethod.GET,"/clientcares/question/unanswered","/clientcares/question/answered","/clientcares/review","/clientcares/question","/clientcares/answer").hasRole("ADMIN")
                 .antMatchers(HttpMethod.POST,"/clientcares/answer").hasRole("ADMIN")
 

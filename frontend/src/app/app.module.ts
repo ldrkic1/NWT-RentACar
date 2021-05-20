@@ -12,6 +12,7 @@ import { ReviewService } from './review/review.service';
 import { HttpClientModule } from '@angular/common/http';
 import { QuestionService } from './faq/faq.service';
 import { FormsModule } from '@angular/forms';
+import { AdminReviewComponent } from './AdminReview';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { FormsModule } from '@angular/forms';
     HomeComponent,
     VehicleComponent,
     ReviewComponent,
-    FaqComponent
+    FaqComponent,
+    AdminReviewComponent
   ],
   imports: [
     BrowserModule,

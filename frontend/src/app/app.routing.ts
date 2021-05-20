@@ -5,6 +5,7 @@ import { VehicleComponent } from './vehicle';
 import { ReviewComponent } from './review';
 import { FaqComponent } from './faq';
 import { SignUpComponent } from './signup';
+import { AdminReviewComponent } from './AdminReview';
 
 const routes: Routes = [
     { path: '', component: HomeComponent },
@@ -12,7 +13,7 @@ const routes: Routes = [
     { path: 'review', component: ReviewComponent },
     { path: 'faq', component: FaqComponent },
     { path: 'signup', component: SignUpComponent},
-
+    { path: 'adminReview', component: AdminReviewComponent},
     // otherwise redirect to home
     { path: '**', redirectTo: '' }
 ];
