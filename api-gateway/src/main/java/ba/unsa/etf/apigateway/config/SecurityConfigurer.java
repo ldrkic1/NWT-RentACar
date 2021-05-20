@@ -16,6 +16,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.http.HttpMethod;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 
 @EnableWebSecurity
@@ -34,7 +35,8 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter{
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable()
+        http.csrf().disable().
+        cors().and()
                 .authorizeRequests().antMatchers(HttpMethod.GET,"/users/users/all", "/users/users/clients", "/users/users/admins", "/users/users/user", "/users/users/byUsername", "/users/users/userDTO", "/users/users/client", "/users/users/admin", "/users/users/byRole", "/users/users/roles", "/users/users/countUsers", "/users/users/countClients").hasRole("ADMIN")
                 .antMatchers(HttpMethod.POST, "/authenticate", "/users/users/newUser").permitAll()
                 .antMatchers(HttpMethod.DELETE, "/users/users").hasRole("ADMIN")
@@ -46,7 +48,8 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter{
                 .antMatchers(HttpMethod.GET, "/notifications/reservationNotifications/all", "/notifications/reservationNotifications/client", "/notifications/reservationNotifications/reservation", "/notifications/reservationNotifications/reservationNotification", "/notifications/reservationNotifications/between").hasRole("ADMIN")
 
                 .antMatchers(HttpMethod.GET,"/clientcares/review/all","/clientcares/question/all","/clientcares/answer/all").permitAll()
-                .antMatchers(HttpMethod.POST,"/clientcares/review/newReview","/clientcares/question/newQuestion").hasRole("CLIENT")
+                //.antMatchers(HttpMethod.POST,"/clientcares/review/newReview","/clientcares/question/newQuestion").hasRole("CLIENT")
+                .antMatchers(HttpMethod.POST,"/clientcares/review/newReview","/clientcares/question/newQuestion").permitAll()
                 .antMatchers(HttpMethod.DELETE,"/clientcares/review","/clientcares/question","/clientcares/answer").hasRole("ADMIN")
                 .antMatchers(HttpMethod.GET,"/clientcares/question/unanswered","/clientcares/question/answered","/clientcares/review","/clientcares/question","/clientcares/answer").hasRole("ADMIN")
                 .antMatchers(HttpMethod.POST,"/clientcares/answer").hasRole("ADMIN")
@@ -61,6 +64,7 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter{
 
                 .anyRequest().authenticated()
                 .and()
+                //.cors().disable()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 

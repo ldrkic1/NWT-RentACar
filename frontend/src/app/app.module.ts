@@ -11,6 +11,7 @@ import { FaqComponent } from './faq';
 import { ReviewService } from './review/review.service';
 import { HttpClientModule } from '@angular/common/http';
 import { QuestionService } from './faq/faq.service';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { QuestionService } from './faq/faq.service';
   imports: [
     BrowserModule,
     appRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [ReviewService,QuestionService],
   bootstrap: [AppComponent]
