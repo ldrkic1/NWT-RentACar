@@ -1,5 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { Answer } from '../models/Answer';
 import { Question } from '../models/Question';
 import { QuestionService } from './faq.service';
@@ -30,4 +31,19 @@ export class FaqComponent implements OnInit {
         );
     }
 
+    public onAddQuestion(addQuestionForm: NgForm): void {
+      addQuestionForm.value.user={};
+      addQuestionForm.value.user.username="";
+        this.questionService.addQuestion(addQuestionForm.value,addQuestionForm.controls['username'].value).subscribe(
+          (response: Question) => {
+            console.log(response);
+            this.getAnswersAndQuestions();
+            addQuestionForm.reset();
+          },
+          (error: HttpErrorResponse) => {
+            alert(error.message);
+            addQuestionForm.reset();
+          }
+        );
+      }
 }

@@ -13,6 +13,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { QuestionService } from './faq/faq.service';
 import { FormsModule } from '@angular/forms';
 import { AdminReviewComponent } from './AdminReview';
+import { AdminFaqComponent } from './adminFAQ';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { AdminReviewComponent } from './AdminReview';
     VehicleComponent,
     ReviewComponent,
     FaqComponent,
-    AdminReviewComponent
+    AdminReviewComponent,
+    AdminFaqComponent
   ],
   imports: [
     BrowserModule,
