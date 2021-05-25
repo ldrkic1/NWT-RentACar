@@ -67,6 +67,7 @@ public class UserService {
     }
 
     public User saveUser(User user){
+        System.out.println(" u savee");
         if(user.getFirstName().isEmpty())
             throw new ValidationException("First name is empty");
         if(!name.matcher(user.getFirstName()).matches())
@@ -92,10 +93,17 @@ public class UserService {
         if(userOptional.isPresent()){
             throw new ApiRequestException("Username is already taken");
         }
-        Set<Role>roles=user.getRoles();
+
+        Role clientRole = new Role();
+        //clientRole.setRoleName(RoleName.ROLE2);
+        clientRole.setRoleName(RoleName.ROLE_CLIENT);
+        Set<Role> clientRoles = new HashSet<Role>();
+
+        //Set<Role>roles=user.getRoles();
         Set<Role> nove = new HashSet<>();
-        for(Role role: roles){
-            System.out.println(roleRepository.findByRoleName(role.getRoleName()));
+        clientRoles.add(clientRole);
+        for(Role role: clientRoles){
+            System.out.println("usaaao "+roleRepository.findByRoleName(role.getRoleName()));
             nove.add(roleRepository.findByRoleName(role.getRoleName()));
         }
         user.setRoles(nove);
