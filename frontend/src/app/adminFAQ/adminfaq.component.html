@@ -11,7 +11,7 @@
       <div class="card-header">
         <h4>Question Details</h4>
       </div>
-      <div class="card-body">
+      <div class="card-body" id="main-container">
         <div class="table-responsive">
           <table class="table table-striped">
             <tbody><tr>
@@ -20,6 +20,7 @@
               <th>Username</th>
               <th>Title</th>
               <th>Question</th>
+              <th>Answered</th>
               <th>Action</th>
             </tr>
             <tr *ngFor="let question of questions">
@@ -27,13 +28,57 @@
               <td>{{question.user.lastName}}</td>
               <td>{{question.user.username}}</td>
               <td>{{question.title}}</td>
-              <td>{{question.question}}</td>
+              <td style="width: 30%">{{question.question}}</td>
+              <td *ngIf="question?.answered; else unanswered"><span class="badge badge-pill badge-success">Yes</span></td>
+              <ng-template #unanswered>
+                <td><span class="badge badge-pill bg-warning">No</span></td>
+
+              </ng-template>
               <td>
+                <a (click)="onOpenModal(question)" class="btn btn-primary btn-action mr-1" data-toggle="modal" data-target="#questionAnswerModal"><i class="fas fa-pencil-alt"></i></a>
                 <a (click)="onDeleteQuestion(question.id)" class="btn btn-danger btn-action" data-toggle="tooltip" title="" data-confirm="Are You Sure?|This action can not be undone. Do you want to continue?" data-confirm-yes="alert('Deleted')" data-original-title="Delete"><i class="fas fa-trash"></i></a>
               </td>
             </tr>
           </tbody></table>
         </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div id="questionAnswerModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="mb-4">{{questionObj?.title}}</h5>
+        <button type="button" class="close" data-dismiss="modal" id="deleteBtn">&times;</button>
+      </div>
+      <div class="modal-body">
+          <form #addAnswerForm="ngForm" (ngSubmit)="onAnswerQuestion(addAnswerForm)">
+            <div class="form-group">
+              <input class="form-control form-control-lg" type="text" ngModel name="username" required>
+              <br>
+              <h5>{{questionObj?.question}}</h5>
+            </div>
+            <div *ngIf="questionObj?.answered; else elseBlock">
+              <div class="form-group">
+                <blockquote class="blockquote">
+                  <p class="mb-0">{{answerOnQuestion?.answer}}</p>
+                </blockquote>
+                <button (click)="onDeleteAnswer(answerOnQuestion?.id, addAnswerForm)" class="btn btn-secondary btn-sm" type="button"> Delete Answer </button>
+              </div>
+            </div>
+            <ng-template #elseBlock>
+              <div class="form-group">
+                <textarea class="form-control" ngModel name="answer" required></textarea>
+              </div>
+              <div class="form-group">
+                <button [disabled]="addAnswerForm.invalid" class="btn btn-secondary btn-sm" type="submit"> Submit Answer </button>
+            </div>
+            </ng-template>
+          </form>
       </div>
     </div>
   </div>

@@ -32,4 +32,17 @@ export class QuestionService {
         return this.http.delete<any>(`${this.apiBaseUrl}/clientcares/question?id=${id}`);
     }
 
+    public getAnwserOnQuestion(questionId: number): Observable<Answer> {
+        return this.http.get<Answer>(`${this.apiBaseUrl}/clientcares/answer?questionID=${questionId}`);
+    }
+
+    public addAnswerOnQuestion(answer: Answer, questionId: number, u: string): Observable<Answer> {
+        answer.user.username = u;
+        return this.http.post<Answer>(`${this.apiBaseUrl}/clientcares/answer?questionID=${questionId}`, answer);
+    }
+
+    public deleteAnswer(id: number): Observable<any> {
+        return this.http.delete<any>(`${this.apiBaseUrl}/clientcares/answer?id=${id}`);
+    }
+
 }
