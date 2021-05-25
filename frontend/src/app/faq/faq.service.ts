@@ -12,17 +12,6 @@ import { Role } from '../models/Role';
 @Injectable({providedIn: 'root'})
 export class QuestionService {
     private apiBaseUrl = environment.apiBaseUrl;
-    private user: User = {
-        id: 0,
-        firstName:'',
-        lastName:'',
-        username: '',
-        roles: new Set<Role>()
-    };
-
-    private temp = {
-        username:''
-    };
     constructor(private http: HttpClient) {}
 
     public getAnswersAndQuestions(): Observable<Answer[]> {

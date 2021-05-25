@@ -14,6 +14,7 @@ import { QuestionService } from './faq/faq.service';
 import { FormsModule } from '@angular/forms';
 import { AdminReviewComponent } from './AdminReview';
 import { AdminFaqComponent } from './adminFAQ';
+import { ClientComponent } from './client';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { AdminFaqComponent } from './adminFAQ';
     ReviewComponent,
     FaqComponent,
     AdminReviewComponent,
-    AdminFaqComponent
+    AdminFaqComponent,
+    ClientComponent
   ],
   imports: [
     BrowserModule,
