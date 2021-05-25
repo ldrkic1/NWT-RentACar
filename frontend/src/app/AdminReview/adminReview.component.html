@@ -4,6 +4,12 @@
 
 <div class="container bootstrap snippets bootdey">
 <div class="col-md-12 col-12 col-sm-12">
+  <form class="form-inline my-2 my-lg-0">
+    <input type="search" (ngModelChange)="searchClients(key.value)" #key="ngModel" ngModel
+     name="key" id="searchName" class="form-control mr-sm-2" placeholder="Search..." required>
+ </form>
+ <br>
+
     <div class="card">
       <div class="card-header">
         <h4>Review Details</h4>
