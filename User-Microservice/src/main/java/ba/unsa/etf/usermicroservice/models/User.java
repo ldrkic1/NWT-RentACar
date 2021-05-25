@@ -36,9 +36,6 @@ public class User {
     private String password;
     private Boolean enabled=Boolean.TRUE;
     private LocalDateTime lastActivity=LocalDateTime.now();
-    public Optional<@PastOrPresent LocalDateTime> getDateOfLastActivity() {
-        return Optional.of(lastActivity);
-    }
 
     //@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @ManyToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST }, fetch = FetchType.LAZY)
