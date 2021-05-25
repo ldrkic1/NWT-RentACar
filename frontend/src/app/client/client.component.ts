@@ -55,17 +55,17 @@ export class ClientComponent implements OnInit{
         //alert(addReviewForm.controls['username'].value);
         console.log(registrationForm.value);
         /*addReviewForm.value.user = {};
-        addReviewForm.value.user.username = "";
-        this.reviewService.addReview(addReviewForm.value, addReviewForm.controls['username'].value).subscribe(
-          (response: Review) => {
+        addReviewForm.value.user.username = "";*/
+        this.clientService.registration(registrationForm.value).subscribe(
+          (response: User) => {
             console.log(response);
-            this.getReviews();
-            addReviewForm.reset();
+            this.getClients();
+            registrationForm.reset();
           },
           (error: HttpErrorResponse) => {
             alert(error.message);
             registrationForm.reset();
           }
-        );*/
+        );
       }
 }

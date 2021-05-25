@@ -44,7 +44,7 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter{
 
                 .antMatchers(HttpMethod.GET, "/notifications/notifications/all", "/notifications/notifications/client", "/notifications/notifications/notification", "/notifications/notifications/between").hasRole("ADMIN")
                 .antMatchers(HttpMethod.GET, "/notifications/questionNotifications/newQuestionNotification", "/notifications/reservationNotifications/newReservationNotification").permitAll()
-                .antMatchers(HttpMethod.GET, "/notifications/questionNotifications/all", "/notifications/questionNotifications/client", "/notifications/questionNotifications/question", "/notifications/questionNotifications/questionNotification", "/notifications/questionNotifications/between").hasRole("ADMIN")
+                .antMatchers(HttpMethod.GET, "/notifications/questionNotifications/all", "/notifications/questionNotifications/client", "/notifications/questionNotifications/question", "/notifications/questionNotifications/questionNotification", "/notifications/questionNotifications/between").permitAll()
                 .antMatchers(HttpMethod.GET, "/notifications/reservationNotifications/all", "/notifications/reservationNotifications/client", "/notifications/reservationNotifications/reservation", "/notifications/reservationNotifications/reservationNotification", "/notifications/reservationNotifications/between").hasRole("ADMIN")
 
                 .antMatchers(HttpMethod.GET,"/clientcares/review/all","/clientcares/question/all","/clientcares/answer/all").permitAll()

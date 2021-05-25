@@ -16,4 +16,15 @@ export class ClientService{
     public getClients(): Observable<User[]> {
         return this.http.get<User[]>(`${this.apiServerUrl}/users/users/clients`);
       }
+
+    public registration(client: User): Observable<User> {
+        console.log("1:");
+        //console.log(review);
+        //console.log(username);
+        //review.user.username=username;
+        console.log("2:");
+        //console.log(review);
+        return this.http.post<User>(`${this.apiServerUrl}/users/users/newUser`, client);
+      }
+
 }
