@@ -1,6 +1,12 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+
 <div class="container">
 <div class="col-md-12 col-12 col-sm-12">
+  <form class="form-inline my-2 my-lg-0">
+    <input type="search" (ngModelChange)="searchClients(key.value)" #key="ngModel" ngModel
+     name="key" id="searchName" class="form-control mr-sm-2" placeholder="Search..." required>
+  </form>
+  <br>
     <div class="card">
       <div class="card-header">
         <h4>Question Details</h4>
