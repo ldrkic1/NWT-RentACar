@@ -1,8 +1,8 @@
+<head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+</head>
 
-
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
-
-<div class="container bootstrap snippets bootdey">
+<div class="container bootstrap snippets bootdey" id="main-container">
 <div class="col-md-12 col-12 col-sm-12">
     <form class="form-inline my-2 my-lg-0">
         <input type="search" (ngModelChange)="searchClients(key.value)" #key="ngModel" ngModel
@@ -57,7 +57,7 @@
 
 
 <!-- Modal -->
-<div id="myModal" class="modal fade" role="dialog">
+<div id="myModal" class="modal fade" role="dialog" ng-app="ui.bootstrap.demo">
     <div class="modal-dialog">
    
       <!-- Modal content-->
@@ -90,14 +90,17 @@
                     </div>
                 
                   <div class="form-group">
-                      <button [disabled]="registrationForm.invalid" class="btn btn-secondary btn-sm" type="submit"> Submit Review </button>
-                  </div>
+                    <div class="alert alert-warning" *ngIf="message !== ''">
+                      <strong>Warning</strong>
+                      <Br /> {{message}}
+                    </div>
+                      <button [disabled]="registrationForm.invalid" class="btn btn-secondary btn-sm" type="submit"> Submit </button>
+                    </div>
               </form>
-  
-  
           </div>
    </div>
-    </div>
-   </div>
+  </div>
+</div>
+
 
 
