@@ -96,7 +96,7 @@ public class NotificationMicroserviceApplication {
                 questionDTOList.add(new QuestionDTO(question, user));
                 userRepository.save(user);
                 //questionRepository.save(question);
-                QuestionNotification qn1 = new QuestionNotification("Title", "Content", LocalDateTime.now(), user, question);
+                QuestionNotification qn1 = new QuestionNotification("Title", user.getUsername()+" "+" je postavio pitanje: "+question.getTitle(), LocalDateTime.now(), user, question);
                 questionNotificationRepository.save(qn1);
 
             });

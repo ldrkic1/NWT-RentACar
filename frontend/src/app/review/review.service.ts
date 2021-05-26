@@ -29,5 +29,5 @@ export class ReviewService{
 
       public deleteReview(reviewId: number): Observable<any> {
         return this.http.delete<any>(`${this.apiServerUrl}/clientcares/review?id=${reviewId}`);
-      }
+    }
 }
