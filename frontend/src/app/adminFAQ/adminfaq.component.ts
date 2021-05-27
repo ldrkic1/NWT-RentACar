@@ -105,7 +105,9 @@ export class AdminFaqComponent implements OnInit {
   public onAnswerQuestion(addAnswerForm: NgForm): void {
     addAnswerForm.value.user={};
     addAnswerForm.value.user.username="";
-    this.questionService.addAnswerOnQuestion(addAnswerForm.value,this.questionObj.id,addAnswerForm.controls['username'].value).subscribe(
+    let user = sessionStorage.getItem("username");
+    addAnswerForm.value.user.username=user;
+    this.questionService.addAnswerOnQuestion(addAnswerForm.value,this.questionObj.id,addAnswerForm.value.user.username).subscribe(
       (response: Answer) => {
         console.log(response);
         this.questionObj.answered= !this.questionObj.answered;

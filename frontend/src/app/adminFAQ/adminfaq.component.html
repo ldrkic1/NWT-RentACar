@@ -58,8 +58,6 @@
       <div class="modal-body">
           <form #addAnswerForm="ngForm" (ngSubmit)="onAnswerQuestion(addAnswerForm)">
             <div class="form-group">
-              <input class="form-control form-control-lg" type="text" ngModel name="username" required>
-              <br>
               <h5>{{questionObj?.question}}</h5>
             </div>
             <div *ngIf="questionObj?.answered; else elseBlock">
