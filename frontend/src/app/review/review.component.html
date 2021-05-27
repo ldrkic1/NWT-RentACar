@@ -33,7 +33,7 @@
 
 </div>
 <br>
-<button  data-toggle="modal" data-target="#myModal" type="button" class="btn btn-secondary btn-lg">Add review</button>
+<button  data-toggle="modal" data-target="#myModal" type="button" class="btn btn-secondary btn-lg" *ngIf="homeService.isClientLoggedIn()" >Add review</button>
 </div>
 
 
@@ -52,10 +52,7 @@
         </div>
         <div class="modal-body">
           <form #addReviewForm="ngForm" (ngSubmit)="onAddReview(addReviewForm)">
-          <div class="form-group">
-            <input class="form-control form-control-lg" type="text" id="validationCustom03" ngModel name="username" required>
-            
-        </div>
+         
 
         
             <p class="mb-2">Title</p>

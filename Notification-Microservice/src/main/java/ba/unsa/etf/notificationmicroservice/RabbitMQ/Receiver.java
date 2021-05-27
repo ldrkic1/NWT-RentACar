@@ -65,7 +65,7 @@ public class Receiver {
             user = userRepository.findByUsername(questionDTO.getUser().getUsername()).get();
         }
 
-        QuestionNotification questionNotification=new QuestionNotification(questionDTO.getQuestion().getTitle(), "Content", LocalDateTime.now(), null, null);
+        QuestionNotification questionNotification=new QuestionNotification(questionDTO.getQuestion().getTitle(), questionDTO.getUser().getUsername()+" je postavio pitanje: "+questionDTO.getQuestion().getTitle(), LocalDateTime.now(), null, null);
         Question question2 = new Question();
         question2.setId(questionDTO.getQuestion().getId());
         question2.setTitle(questionDTO.getQuestion().getTitle());

@@ -34,11 +34,14 @@ export class FaqComponent implements OnInit {
     public onAddQuestion(addQuestionForm: NgForm): void {
       addQuestionForm.value.user={};
       addQuestionForm.value.user.username="";
-      this.questionService.addQuestion(addQuestionForm.value,addQuestionForm.controls['username'].value).subscribe(
+      let user = sessionStorage.getItem("username");
+      addQuestionForm.value.user.username=user;
+      this.questionService.addQuestion(addQuestionForm.value, addQuestionForm.value.user.username).subscribe(
         (response: Question) => {
           console.log(response);
           this.getAnswersAndQuestions();
           addQuestionForm.reset();
+          
         },
         (error: HttpErrorResponse) => {
           addQuestionForm.reset();

@@ -9,12 +9,13 @@ import { VehicleComponent } from './vehicle';
 import { ReviewComponent } from './review';
 import { FaqComponent } from './faq';
 import { ReviewService } from './review/review.service';
-import { HttpClientModule } from '@angular/common/http';
 import { QuestionService } from './faq/faq.service';
 import { FormsModule } from '@angular/forms';
 import { AdminReviewComponent } from './AdminReview';
 import { AdminFaqComponent } from './adminFAQ';
 import { ClientComponent } from './client';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { LogoutComponent } from './logout/logout.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { ClientComponent } from './client';
     FaqComponent,
     AdminReviewComponent,
     AdminFaqComponent,
-    ClientComponent
+    ClientComponent,
+    LogoutComponent
   ],
   imports: [
     BrowserModule,

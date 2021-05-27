@@ -4,21 +4,22 @@
 <!-- nav -->
 <nav class="navbar navbar-expand navbar-dark bg-dark">
   <div class="navbar-nav">
-      <a class="nav-item nav-link" routerLink="/">Home</a>
-      <a class="nav-item nav-link" routerLink="/vehicle">Vehicle</a>
-      <a class="nav-item nav-link" routerLink="/review">Review</a>
-      <a class="nav-item nav-link" routerLink="/faq">FAQ</a>
-      <a class="nav-item nav-link" routerLink="/adminReview">Review</a>
-      <a class="nav-item nav-link" routerLink="/adminFAQ">FAQ</a>
-      <a class="nav-item nav-link" routerLink="/client">Client</a>
+      <a class="nav-item nav-link" *ngIf="!homeService.isAdminLoggedIn() && !homeService.isClientLoggedIn()" routerLink="/">Home</a>
+      <a class="nav-item nav-link" *ngIf="!homeService.isAdminLoggedIn()" routerLink="/vehicle">Vehicle</a>
+      <a class="nav-item nav-link" *ngIf="!homeService.isAdminLoggedIn()" routerLink="/review">Review</a>
+      <a class="nav-item nav-link" *ngIf="!homeService.isAdminLoggedIn()" routerLink="/faq">FAQ</a>
+      <a class="nav-item nav-link" *ngIf="homeService.isAdminLoggedIn()" routerLink="/adminReview">Review</a>
+      <a class="nav-item nav-link" *ngIf="homeService.isAdminLoggedIn()" routerLink="/adminFAQ">FAQ</a>
+      <a class="nav-item nav-link" *ngIf="homeService.isAdminLoggedIn()" routerLink="/client">Client</a>
+      <a class="nav-item nav-link" *ngIf="homeService.isAdminLoggedIn() || homeService.isClientLoggedIn()" routerLink="/logout">Logout</a>
   </div>
   <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
     <ul class="navbar-nav ml-auto">
       <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-bell"></i></a>
-        <ul class="dropdown-menu dropdown-menu-right">
+        <a class="nav-link dropdown-toggle" *ngIf="homeService.isAdminLoggedIn()" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-bell"></i></a>
+        <ul class="dropdown-menu dropdown-menu-right" *ngIf="homeService.isAdminLoggedIn()">
           <div class="drop-content" *ngFor="let questionNotification of questionNotifications">
-            <a class="dropdown-item" href="">{{questionNotification.content}}</a>
+            <a class="dropdown-item" >{{questionNotification.content}}</a>
           </div>
         </ul>
       </li>

@@ -3,6 +3,8 @@ import { QuestionNotification } from './models/QuestionNotification';
 import { QuestionNotificationService } from './QuestionNotification.service';
 import { Component, OnInit } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
+import { HomeService } from './home/home.service';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-root',
@@ -14,11 +16,11 @@ export class AppComponent implements OnInit{
 
   public questionNotifications: QuestionNotification[]=[];
 
-  constructor(private questionNotificationService: QuestionNotificationService){}
+  constructor(private questionNotificationService: QuestionNotificationService, public homeService: HomeService){}
   
   ngOnInit() {
       this.getQuestionNotifications();
-      
+      setTimeout(()=>{this.ngOnInit()}, 1000*10)
       
     }
 
@@ -28,6 +30,7 @@ export class AppComponent implements OnInit{
         (response: QuestionNotification[]) => {
           this.questionNotifications = response;
           console.log(this.questionNotifications);
+          //this.getQuestionNotifications();
         },
         (error: HttpErrorResponse) => {
           alert(error.message);

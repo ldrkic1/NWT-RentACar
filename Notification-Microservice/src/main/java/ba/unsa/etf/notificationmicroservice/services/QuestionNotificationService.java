@@ -39,6 +39,8 @@ public class QuestionNotificationService {
         if(questionNotification.getTitle().isEmpty())
             throw new ValidationException("Notification title is empty");
 
+        System.out.println("eeeeeeeeeeeee"+questionNotification.getTitle());
+
         Optional<User> user = userRepository.findByUsername(questionNotification.getUser().getUsername());
         System.out.println("***********************poslije findUsername"+ questionNotification.getUser().getUsername());
         System.out.println("***********************bazaaaa"+ userRepository.findAll().size());

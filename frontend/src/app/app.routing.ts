@@ -8,6 +8,7 @@ import { SignUpComponent } from './signup';
 import { AdminReviewComponent } from './AdminReview';
 import { AdminFaqComponent } from './adminFAQ';
 import { ClientComponent } from './client';
+import { LogoutComponent } from './logout/logout.component';
 
 const routes: Routes = [
     { path: '', component: HomeComponent },
@@ -18,6 +19,7 @@ const routes: Routes = [
     { path: 'adminReview', component: AdminReviewComponent},
     { path: 'adminFAQ', component: AdminFaqComponent},
     { path: 'client', component: ClientComponent},
+    { path: 'logout', component: LogoutComponent},
     // otherwise redirect to home
     { path: '**', redirectTo: '' }
 ];
