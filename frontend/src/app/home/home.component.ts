@@ -13,7 +13,7 @@ import { HomeService } from './home.service';
 export class HomeComponent{
 
 
-  
+  public messageLogin: string = '';
   public message: string = '';
 
   constructor(private clientService: ClientService, private homeService: HomeService,  private router: Router){}
@@ -34,7 +34,7 @@ export class HomeComponent{
             console.log(obj.role[0].roleName)
             console.log(obj.role[1].roleName)
             sessionStorage.setItem("role", "ROLE_ADMIN");
-            this.router.navigate(['client'])
+            this.router.navigate(['adminReview'])
 
           }
           else{
@@ -43,15 +43,16 @@ export class HomeComponent{
             if(obj.role[0].roleName==='ROLE_CLIENT')
               this.router.navigate(['vehicle'])
               else 
-              this.router.navigate(['client'])
+              this.router.navigate(['adminReview'])
           }
           sessionStorage.setItem("username", loginForm.controls['username'].value);
           sessionStorage.setItem("jwt", "Bearer "+obj.jwt);
-      
+          this.messageLogin = '';
 
         },
         (error: HttpErrorResponse) => {
-         
+          this.messageLogin = error.error.message;
+
         }
       
       );

@@ -15,26 +15,26 @@
         <div class="table-responsive">
           <table class="table table-striped">
             <tbody><tr>
-              <th>Name</th>
-              <th>Surname</th>
-              <th>Username</th>
-              <th>Title</th>
-              <th>Question</th>
-              <th>Answered</th>
-              <th>Action</th>
+              <th class="text-center">Name</th>
+              <th class="text-center">Surname</th>
+              <th class="text-center">Username</th>
+              <th class="text-center">Title</th>
+              <th class="text-center">Question</th>
+              <th class="text-center">Answered</th>
+              <th class="text-center">Action</th>
             </tr>
             <tr *ngFor="let question of questions">
-              <td>{{question.user.firstName}}</td>
-              <td>{{question.user.lastName}}</td>
-              <td>{{question.user.username}}</td>
-              <td>{{question.title}}</td>
-              <td style="width: 30%">{{question.question}}</td>
-              <td *ngIf="question?.answered; else unanswered"><span class="badge badge-pill badge-success">Yes</span></td>
+              <td class="text-center">{{question.user.firstName}}</td>
+              <td class="text-center">{{question.user.lastName}}</td>
+              <td class="text-center">{{question.user.username}}</td>
+              <td class="text-center">{{question.title}}</td>
+              <td class="text-center" style="width: 30%">{{question.question}}</td>
+              <td class="text-center" *ngIf="question?.answered; else unanswered"><span class="badge badge-pill badge-success">Yes</span></td>
               <ng-template #unanswered>
-                <td><span class="badge badge-pill bg-warning">No</span></td>
+                <td class="text-center"><span class="badge badge-pill bg-warning">No</span></td>
 
               </ng-template>
-              <td>
+              <td class="text-center">
                 <a (click)="onOpenModal(question)" class="btn btn-primary btn-action mr-1" data-toggle="modal" data-target="#questionAnswerModal"><i class="fas fa-pencil-alt"></i></a>
                 <a (click)="onDeleteQuestion(question.id)" class="btn btn-danger btn-action" data-toggle="tooltip" title="" data-confirm="Are You Sure?|This action can not be undone. Do you want to continue?" data-confirm-yes="alert('Deleted')" data-original-title="Delete"><i class="fas fa-trash"></i></a>
               </td>
