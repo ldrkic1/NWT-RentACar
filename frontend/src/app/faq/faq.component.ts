@@ -1,6 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { HomeService } from '../home/home.service';
 import { Answer } from '../models/Answer';
 import { Question } from '../models/Question';
 import { QuestionService } from './faq.service';
@@ -12,7 +13,7 @@ import { QuestionService } from './faq.service';
 export class FaqComponent implements OnInit {
     public answersAndQuestions: Answer[] = [];
 
-    constructor(private questionService: QuestionService) {}
+    constructor(private questionService: QuestionService, public homeService: HomeService) {}
 
 
     ngOnInit() {

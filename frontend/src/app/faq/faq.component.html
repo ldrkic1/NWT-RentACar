@@ -18,7 +18,7 @@
       </div>
     </div>
   </div>
-  <button type="button" class="btn btn-secondary btn-lg" data-toggle="modal" data-target="#addQuestionModal">Add Question</button>
+  <button type="button" class="btn btn-secondary btn-lg" data-toggle="modal" data-target="#addQuestionModal" *ngIf="homeService.isClientLoggedIn()">Add Question</button>
 </main>
 
 <!-- Modal -->

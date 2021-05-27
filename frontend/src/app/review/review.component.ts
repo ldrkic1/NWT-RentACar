@@ -20,7 +20,6 @@ export class ReviewComponent implements OnInit{
     
     ngOnInit() {
         this.getReviews();
-        this.newTitleArr = this.splitArr(this.reviews, 3)
         
       }
 
