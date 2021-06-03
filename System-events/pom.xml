@@ -222,6 +222,7 @@
                 </configuration>
             </plugin>
         </plugins>
+        <finalName>systemevents-docker</finalName>
     </build>
 
 </project>

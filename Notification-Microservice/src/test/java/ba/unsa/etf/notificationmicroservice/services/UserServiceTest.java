@@ -29,8 +29,8 @@ public class UserServiceTest {
 
     @Test
     public void getUserTest() throws Exception{
-        Optional<User> user=userService.getUser("idedic2");
-        assertThat(user.get().getUsername()).isEqualTo("idedic2");
+        Optional<User> user=userService.getUser("mmujic2");
+        assertThat(user.get().getUsername()).isEqualTo("mmujic2");
         NotFoundException user1 = assertThrows(
                 NotFoundException.class,
                 ()->userService.getUser("nepostojeci")
@@ -38,6 +38,7 @@ public class UserServiceTest {
         assertThat(user1.getMessage().contains("User with username: nepostojeci doesn't exist"));
     }
 
+    /*
     @Test
     @Transactional
     public void saveUserTest()throws Exception {
@@ -51,5 +52,5 @@ public class UserServiceTest {
         Optional<User> user1=userService.getUser("novi");
         assertThat(user1.get().getUsername()).isEqualTo("novi");
         assertThat(user1.get().getRoles().size()).isEqualTo(1);
-    }
+    }*/
 }

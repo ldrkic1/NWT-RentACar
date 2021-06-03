@@ -8,6 +8,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MockMvc;
+
+import java.time.LocalDateTime;
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -19,6 +22,7 @@ public class NotificationControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
+    private LocalDateTime dateTime= LocalDateTime.now();
     @Test
     public void getAllNotificationsTestC() throws Exception {
         mockMvc.perform(get("/notifications/all")
@@ -40,14 +44,9 @@ public class NotificationControllerTest {
 
     @Test
     public void getAllNotificationsByClientTestC() throws Exception {
-        mockMvc.perform(get("/notifications/client?id=1")
+        mockMvc.perform(get("/notifications/client?id=5")
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
-
-        mockMvc.perform(get("/notifications/client?id=3")
-                .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$.message").value("User with id: 3 isn't client."));
 
         mockMvc.perform(get("/notifications/client?id=990")
                 .accept(MediaType.APPLICATION_JSON))
@@ -77,9 +76,6 @@ public class NotificationControllerTest {
                 .andExpect(status().isNotFound())
                 .andExpect(jsonPath("$.message").value("There is no notifications between two dates."));
 
-        mockMvc.perform(get("/notifications/between?localDateTime1=2021-01-29T20:30:40&localDateTime2=2021-03-31T18:01:00")
-                .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk());
 
     }
 

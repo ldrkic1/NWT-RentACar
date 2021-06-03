@@ -1,0 +1,289 @@
+version: "3"
+services:
+  discovery:
+    container_name: eureka-docker
+    image: eureka-docker
+    restart: always
+    build:
+      context: ./Eureka-service
+      dockerfile: Dockerfile
+    expose:
+      - 8761
+    ports:
+      - 8761:8761
+    networks:
+      - rentacar
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    container_name: rabbitmq
+    restart: on-failure
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+    expose:
+      - 5672
+      - 15672
+    ports:
+      - 5672:5672
+      - 15672:15672
+    networks:
+      - rentacar
+  #mysql konekcije
+  mysql:
+    image: mysql:latest
+    ports:
+      - 3306:3306
+    container_name: mysql
+    environment:
+      MYSQL_DATABASE: user_microservis
+      MYSQL_USER: test
+      MYSQL_PASSWORD: test
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - db-data:/var/lib/mysql
+    networks:
+      - rentacar
+  mysql-clientcare:
+    image: mysql:latest
+    ports:
+      - 3307:3306
+    container_name: mysql-clientcare
+    environment:
+      MYSQL_DATABASE: clientcare
+      MYSQL_USER: test
+      MYSQL_PASSWORD: test
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - db-data-clientcare:/var/lib/mysql
+    networks:
+      - rentacar
+  mysql-notification:
+    image: mysql:latest
+    ports:
+      - 3308:3306
+    container_name: mysql-notification
+    environment:
+      MYSQL_DATABASE: notification_microservis
+      MYSQL_USER: test
+      MYSQL_PASSWORD: test
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - db-data-notification:/var/lib/mysql
+    networks:
+      - rentacar
+  mysql-systemevents:
+    image: mysql:latest
+    ports:
+      - 3309:3306
+    container_name: mysql-systemevents
+    environment:
+      MYSQL_DATABASE: system-events
+      MYSQL_USER: test
+      MYSQL_PASSWORD: test
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - db-data-systemevents:/var/lib/mysql
+    networks:
+      - rentacar
+  mysql-vehicle:
+    image: mysql:latest
+    ports:
+      - 3310:3306
+    container_name: mysql-vehicle
+    environment:
+      MYSQL_DATABASE: vehicle
+      MYSQL_USER: test
+      MYSQL_PASSWORD: test
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - db-data-vehicle:/var/lib/mysql
+    networks:
+      - rentacar      
+  user-service:
+    image: user-docker
+    container_name: user-docker
+    build:
+      context: ./User-Microservice
+      dockerfile: Dockerfile
+    expose:
+      - 8085
+    ports:
+      - 8085:8085
+    networks:
+      - rentacar
+    restart: on-failure
+    links:
+      - discovery:eureka-docker
+      - mysql:mysql
+    depends_on:
+      - mysql
+      - discovery
+    environment:
+      SPRING_DATASOURCE_URL: 'jdbc:mysql://mysql:3306/user_microservis?useSSL=false&allowPublicKeyRetrieval=true'
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://discovery:8761/eureka
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+  api-gateway:
+    image: apigateway-docker
+    container_name: apigateway-docker
+    build:
+      context: ./api-gateway
+      dockerfile: Dockerfile
+    expose:
+      - 8089
+    ports:
+      - 8089:8089
+    restart: on-failure
+    links:
+      - discovery:eureka-docker
+    depends_on:
+      - discovery
+    environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://discovery:8761/eureka
+    networks:
+      - rentacar
+  config-docker:
+    image: config-docker
+    container_name: config-docker
+    build:
+      context: ./Config-server
+      dockerfile: Dockerfile
+    expose:
+      - 8888
+    ports:
+      - 8888:8888
+    restart: on-failure
+    networks:
+      - rentacar
+  clientcare-service:
+    image: clientcare-docker
+    container_name: clientcare-docker
+    build:
+      context: ./ClientCare-Microservice
+      dockerfile: Dockerfile
+    expose:
+      - 8087
+    ports:
+      - 8087:8087
+    networks:
+      - rentacar
+    restart: on-failure
+    links:
+      - discovery:eureka-docker
+      - mysql-clientcare:mysql-clientcare
+      - rabbitmq:rabbitmq
+      - user-service:user-docker
+    depends_on:
+      - mysql-clientcare
+      - discovery
+      - rabbitmq
+      - user-service
+    environment:
+      SPRING_DATASOURCE_URL: 'jdbc:mysql://mysql-clientcare:3306/clientcare?useSSL=false&allowPublicKeyRetrieval=true'
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://discovery:8761/eureka
+      SPRING_RABBITMQ_HOST: rabbitmq
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root 
+  notification-service:
+    image: notification-docker
+    container_name: notification-docker
+    build:
+      context: ./Notification-Microservice
+      dockerfile: Dockerfile
+    expose:
+      - 8086
+    ports:
+      - 8086:8086
+    networks:
+      - rentacar
+    restart: on-failure
+    links:
+      - discovery:eureka-docker
+      - mysql-notification:mysql-notification
+      - rabbitmq:rabbitmq
+      - user-service:user-docker
+      - clientcare-service:clientcare-docker
+    depends_on:
+      - mysql-notification
+      - discovery
+      - rabbitmq
+      - user-service
+      - clientcare-service
+    environment:
+      SPRING_DATASOURCE_URL: 'jdbc:mysql://mysql-notification:3306/notification_microservis?useSSL=false&allowPublicKeyRetrieval=true'
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://discovery:8761/eureka
+      SPRING_RABBITMQ_HOST: rabbitmq
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root 
+  systemevents-service:
+    image: systemevents-docker
+    container_name: systemevents-docker
+    build:
+      context: ./System-events
+      dockerfile: Dockerfile
+    expose:
+      - 8090
+      - 8091
+    ports:
+      - 8090:8090
+      - 8091:8091
+    networks:
+      - rentacar
+    restart: on-failure
+    links:
+      - discovery:eureka-docker
+      - mysql-systemevents:mysql-systemevents
+    depends_on:
+      - mysql-systemevents
+      - discovery
+    environment:
+      SPRING_DATASOURCE_URL: 'jdbc:mysql://mysql-systemevents:3306/system-events?useSSL=false&allowPublicKeyRetrieval=true'
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://discovery:8761/eureka
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+  vehicle-service:
+    image: vehicle-docker
+    container_name: vehicle-docker
+    build:
+      context: ./Vehicle-Microservice
+      dockerfile: Dockerfile
+    expose:
+      - 8088
+    ports:
+      - 8088:8088
+    networks:
+      - rentacar
+    restart: on-failure
+    links:
+      - discovery:eureka-docker
+      - mysql-vehicle:mysql-vehicle
+    depends_on:
+      - mysql-vehicle
+      - discovery
+    environment:
+      SPRING_DATASOURCE_URL: 'jdbc:mysql://mysql-vehicle:3306/vehicle?useSSL=false&allowPublicKeyRetrieval=true'
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://discovery:8761/eureka
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root 
+  rentacar-frontend:
+    container_name: rentacar-frontend
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    image: rentacar-frontend:latest
+    restart: always
+    expose:
+      - 80
+    ports:
+      - 4200:80 
+    networks:
+      - rentacar         
+volumes:
+  db-data:
+  db-data-clientcare:
+  db-data-notification:
+  db-data-systemevents:
+  db-data-vehicle:
+networks:
+  rentacar:
+    driver: bridge

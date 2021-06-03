@@ -31,10 +31,7 @@ public class NotificationServiceTest {
         Exception exception = assertThrows(NotFoundException.class, () -> notificationService.getAllNotificationsByClient(990L));
         assertTrue(exception.getMessage().contains("User with id: 990 doesn't exist."));
 
-        exception = assertThrows(ApiRequestException.class, () -> notificationService.getAllNotificationsByClient(3L));
-        assertTrue(exception.getMessage().contains("User with id: 3 isn't client."));
-
-        assertThat(notificationService.getAllNotificationsByClient(1L).size()).isNotEqualTo(0);
+        assertThat(notificationService.getAllNotificationsByClient(4L).size()).isNotEqualTo(0);
     }
 
     @Test

@@ -40,7 +40,7 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter{
                 .authorizeRequests().antMatchers(HttpMethod.GET,"/users/users/all", "/users/users/clients", "/users/users/admins", "/users/users/user", "/users/users/byUsername", "/users/users/userDTO", "/users/users/client", "/users/users/admin", "/users/users/byRole", "/users/users/roles", "/users/users/countUsers", "/users/users/countClients").permitAll()
                 .antMatchers(HttpMethod.POST, "/authenticate", "/users/users/newUser").permitAll()
                 .antMatchers(HttpMethod.DELETE, "/users/users").hasRole("ADMIN")
-                .antMatchers(HttpMethod.PUT, "/users/users/updateUser").hasAnyRole("ADMIN", "CLIENT")
+                .antMatchers(HttpMethod.PUT, "/users/users/updateUser").permitAll()
 
                 .antMatchers(HttpMethod.GET, "/notifications/notifications/all", "/notifications/notifications/client", "/notifications/notifications/notification", "/notifications/notifications/between").hasRole("ADMIN")
                 .antMatchers(HttpMethod.GET, "/notifications/questionNotifications/newQuestionNotification", "/notifications/reservationNotifications/newReservationNotification").permitAll()

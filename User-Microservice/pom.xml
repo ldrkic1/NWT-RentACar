@@ -236,6 +236,7 @@
                 </executions>
             </plugin>
         </plugins>
+        <finalName>user-docker</finalName>
     </build>
 
 </project>

@@ -16,6 +16,7 @@ import { AdminFaqComponent } from './adminFAQ';
 import { ClientComponent } from './client';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LogoutComponent } from './logout/logout.component';
+import { SignUpComponent } from './signup';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { LogoutComponent } from './logout/logout.component';
     AdminReviewComponent,
     AdminFaqComponent,
     ClientComponent,
-    LogoutComponent
+    LogoutComponent,
+    SignUpComponent
   ],
   imports: [
     BrowserModule,

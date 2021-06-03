@@ -242,6 +242,7 @@
 				</executions>
 			</plugin>
 		</plugins>
+		<finalName>clientcare-docker</finalName>
 	</build>
 
 </project>

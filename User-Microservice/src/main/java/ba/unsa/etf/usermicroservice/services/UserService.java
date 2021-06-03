@@ -66,8 +66,7 @@ public class UserService {
         return false;
     }
 
-    public User saveUser(User user){
-        System.out.println(" u savee");
+    private void validateUser(User user){
         if(user.getFirstName().isEmpty())
             throw new ValidationException("First name is empty");
         if(!name.matcher(user.getFirstName()).matches())
@@ -93,7 +92,10 @@ public class UserService {
         if(userOptional.isPresent()){
             throw new ApiRequestException("Username is already taken");
         }
-
+    }
+    public User saveUser(User user){
+        System.out.println(" u savee");
+        validateUser(user);
         Role clientRole = new Role();
         //clientRole.setRoleName(RoleName.ROLE2);
         clientRole.setRoleName(RoleName.ROLE_CLIENT);
@@ -147,15 +149,19 @@ public class UserService {
     public User updateUser(User user) {
         if(!userRepository.findById(user.getId()).isPresent())
             throw new NotFoundException("User doesn't exist");
-        /*User existingUser=userRepository.getOne(user.getId());
-        existingUser.setFirstName(user.getFirstName());
-        existingUser.setLastName(user.getLastName());
-        existingUser.setEmail(user.getEmail());
-        existingUser.setEnabled(user.getEnabled());
-        existingUser.setRoles(user.getRoles());
-        existingUser.setUsername(user.getUsername());
-        existingUser.setPassword(user.getPassword());
-        existingUser.setLastActivity(user.getLastActivity());*/
+        Role clientRole = new Role();
+        //clientRole.setRoleName(RoleName.ROLE2);
+        clientRole.setRoleName(RoleName.ROLE_CLIENT);
+        Set<Role> clientRoles = new HashSet<Role>();
+
+        //Set<Role>roles=user.getRoles();
+        Set<Role> nove = new HashSet<>();
+        clientRoles.add(clientRole);
+        for(Role role: clientRoles){
+            System.out.println("usaaao "+roleRepository.findByRoleName(role.getRoleName()));
+            nove.add(roleRepository.findByRoleName(role.getRoleName()));
+        }
+        user.setRoles(nove);
         return userRepository.save(user);
     }
 

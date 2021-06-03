@@ -56,6 +56,7 @@
                 </configuration>
             </plugin>
         </plugins>
+		<finalName>config-docker</finalName>
 	</build>
 
 </project>

@@ -56,11 +56,6 @@
             <artifactId>junit</artifactId>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>ba.unsa.etf.vehiclemicroservice</groupId>
-            <artifactId>demo</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
@@ -93,6 +88,7 @@
                 </configuration>
             </plugin>
         </plugins>
+		<finalName>vehicle-docker</finalName>
 	</build>
 
 </project>

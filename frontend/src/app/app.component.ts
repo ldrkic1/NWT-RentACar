@@ -33,7 +33,7 @@ export class AppComponent implements OnInit{
           //this.getQuestionNotifications();
         },
         (error: HttpErrorResponse) => {
-          alert(error.message);
+          //alert(error.message);
         }
       );
     }

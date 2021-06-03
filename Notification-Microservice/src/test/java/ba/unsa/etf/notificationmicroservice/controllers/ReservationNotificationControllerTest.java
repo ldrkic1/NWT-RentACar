@@ -22,6 +22,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+/*
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
@@ -127,18 +128,7 @@ public class ReservationNotificationControllerTest {
         reservation1.setReservationNotification(null);
         reservationService.save(reservation1);
         reservation1.setReservationNotification(rn1);
-        //qn1.setQuestion(question1);
 
-        //Question question1 = questionService.getQuestion(Long.valueOf(1)).get();
-        //question1.setQuestionNotification(qn1);
-
-        /*Role clientRole = new Role();
-        clientRole.setRoleName(RoleName.ROLE_CLIENT);
-        User user = new User("user", "User", "Useric");
-        Set<Role> cilentRoles = new HashSet<Role>();
-        cilentRoles.add(clientRole);
-        user.setRoles(cilentRoles);
-        userService.save(user);*/
         User user=userService.getUser("neko").get();
         rn1.setUser(user);
         rn1.setReservation(reservation1);
@@ -170,6 +160,6 @@ public class ReservationNotificationControllerTest {
                 .andExpect(jsonPath("$.message").value("Reservation notification with reservation id: 1 already exists"));
 
     }
-
-
 }
+*/
+
