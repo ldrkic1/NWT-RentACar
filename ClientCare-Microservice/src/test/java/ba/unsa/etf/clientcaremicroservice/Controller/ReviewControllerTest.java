@@ -42,21 +42,21 @@ public class ReviewControllerTest {
     }
 
 
-    @BeforeAll
+    @Test
     public void getReviewById() throws Exception {
-        mockMvc.perform(get("/review?id=1")
+        mockMvc.perform(get("/review?id=2")
                 .accept(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id").value(1));
+                .andExpect(jsonPath("$.id").value(2));
     }
 
     @Test
     public void getReviewById2() throws Exception {
-        mockMvc.perform(get("/review?id=5")
+        mockMvc.perform(get("/review?id=500")
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound())
-                .andExpect(jsonPath("$.message").value("Review with id: 5 doesn't exist."));
+                .andExpect(jsonPath("$.message").value("Review with id: 500 doesn't exist."));
     }
 
     @Test
@@ -83,18 +83,11 @@ public class ReviewControllerTest {
     }
 
     @Test
-    public void deleteReview() throws Exception {
-        mockMvc.perform(delete("/review?id=1")
-                .accept(MediaType.TEXT_PLAIN))
-                .andExpect(status().isOk());
-    }
-
-    @Test
     public void deleteReview2() throws Exception {
-        mockMvc.perform(delete("/review?id=5")
+        mockMvc.perform(delete("/review?id=500")
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound())
-                .andExpect(jsonPath("$.message").value("Review with id: 5 doesn't exist."));
+                .andExpect(jsonPath("$.message").value("Review with id: 500 doesn't exist."));
 
     }
 

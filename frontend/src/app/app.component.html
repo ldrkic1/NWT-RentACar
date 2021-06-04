@@ -5,7 +5,7 @@
 <nav class="navbar navbar-expand navbar-dark bg-dark">
   <div class="navbar-nav">
       <a class="nav-item nav-link" *ngIf="!homeService.isAdminLoggedIn() && !homeService.isClientLoggedIn()" routerLink="/">Home</a>
-      <a class="nav-item nav-link" *ngIf="!homeService.isAdminLoggedIn()" routerLink="/vehicle">Vehicle</a>
+      <a class="nav-item nav-link" routerLink="/vehicle">Vehicle</a>
       <a class="nav-item nav-link" *ngIf="!homeService.isAdminLoggedIn()" routerLink="/review">Review</a>
       <a class="nav-item nav-link" *ngIf="!homeService.isAdminLoggedIn()" routerLink="/faq">FAQ</a>
       <a class="nav-item nav-link" *ngIf="homeService.isAdminLoggedIn()" routerLink="/adminReview">Review</a>
@@ -32,3 +32,31 @@
 <div class="main">
   <router-outlet></router-outlet>
 </div>
+
+<!-- Footer -->
+<section id="footer">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm">
+        <h5>About Us</h5>
+        <p class="text-justify text-white">Dugogodišnjim iskustvom, konstantnim obnavljanjem flote automobila, povoljnim cijenama te posebnim pristupom našim klijentima dobili smo jednu od najljepših nagrada, nagradu zadovoljstva naših dragih klijenata.</p>
+      </div>
+      <div class="col-xs-12 col-sm-4 col-md-4">
+        <h5>Contact</h5>
+        <div>
+          <p class="text-justify text-white">Zmaja od Bosne 123, Sarajevo
+            <br>Bosna i Hercegovina
+            <br>Phone: +387 33 111 555
+            <br>E-mail: info@rentacar.ba
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-12 mt-2 mt-sm-2 text-center text-white">
+        <p class="h6">All right Reversed.</p>
+      </div>
+    </div>	
+  </div>
+</section>
+<!-- ./Footer -->

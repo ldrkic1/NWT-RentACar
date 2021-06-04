@@ -5,7 +5,7 @@ import { VehicleComponent } from './vehicle';
 import { ReviewComponent } from './review';
 import { FaqComponent } from './faq';
 import { SignUpComponent } from './signup';
-import { AdminReviewComponent } from './AdminReview';
+import { AdminReviewComponent } from './adminReview';
 import { AdminFaqComponent } from './adminFAQ';
 import { ClientComponent } from './client';
 import { LogoutComponent } from './logout/logout.component';

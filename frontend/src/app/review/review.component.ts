@@ -46,7 +46,7 @@ export class ReviewComponent implements OnInit{
       }
 
       public onAddReview(addReviewForm: NgForm): void {
-        //alert(addReviewForm.controls['username'].value);
+        const closeFormBtn = document.getElementById('add-review-form');        
         console.log(addReviewForm.value);
         addReviewForm.value.user = {};
         addReviewForm.value.user.username = "";
@@ -57,6 +57,7 @@ export class ReviewComponent implements OnInit{
             console.log(response);
             this.getReviews();
             addReviewForm.reset();
+            if(closeFormBtn !=null) closeFormBtn?.click();
           },
           (error: HttpErrorResponse) => {
             alert(error.message);

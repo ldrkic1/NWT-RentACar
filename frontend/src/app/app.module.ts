@@ -10,8 +10,8 @@ import { ReviewComponent } from './review';
 import { FaqComponent } from './faq';
 import { ReviewService } from './review/review.service';
 import { QuestionService } from './faq/faq.service';
-import { FormsModule } from '@angular/forms';
-import { AdminReviewComponent } from './AdminReview';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AdminReviewComponent } from './adminReview';
 import { AdminFaqComponent } from './adminFAQ';
 import { ClientComponent } from './client';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -35,7 +35,8 @@ import { SignUpComponent } from './signup';
     BrowserModule,
     appRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [ReviewService,QuestionService],
   bootstrap: [AppComponent]

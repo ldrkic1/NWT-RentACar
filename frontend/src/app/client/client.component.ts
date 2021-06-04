@@ -53,7 +53,7 @@ export class ClientComponent implements OnInit {
 
       
       public onRegistration(registrationForm: NgForm): void {
-        //alert(addReviewForm.controls['username'].value);
+        const closeFormBtn = document.getElementById('registration-form');
         console.log(registrationForm.value);
         if(registrationForm.controls['password'].value !== registrationForm.controls['passwordRepeat'].value) {
           this.message = 'Passwords do not match!';
@@ -65,6 +65,7 @@ export class ClientComponent implements OnInit {
               this.message='';
               this.getClients();
               registrationForm.reset();
+              if(closeFormBtn != null) closeFormBtn.click();
             },
             (error: HttpErrorResponse) => {
               this.message = error.error.message;

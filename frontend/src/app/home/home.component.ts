@@ -10,13 +10,17 @@ import { HomeService } from './home.service';
 @Component({ 
     templateUrl: 'home.component.html',
     styleUrls: ['./home.component.css'] })
-export class HomeComponent{
+export class HomeComponent implements OnInit {
 
 
   public messageLogin: string = '';
   public message: string = '';
+  public newClient: boolean = false;
 
   constructor(private clientService: ClientService, private homeService: HomeService,  private router: Router){}
+  ngOnInit(): void {
+    this.newClient = false;
+  }
 
 
  
@@ -63,6 +67,7 @@ export class HomeComponent{
 
 
     public onRegistration(registrationForm: NgForm): void {
+      const closeBtn = document.getElementById('registration-form');
         //alert(addReviewForm.controls['username'].value);
         console.log(registrationForm.value);
         if(registrationForm.controls['password'].value !== registrationForm.controls['passwordRepeat'].value) {
@@ -74,6 +79,8 @@ export class HomeComponent{
               console.log(response);
               this.message='';
               registrationForm.reset();
+              if(closeBtn != null) closeBtn?.click()
+              this.newClient = true;
             },
             (error: HttpErrorResponse) => {
               this.message = error.error.message;

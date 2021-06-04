@@ -114,7 +114,7 @@ public class ReviewServiceTest {
                 NotFoundException.class,
                 () -> reviewService.deleteReviewById(9L));
 
-        assertDoesNotThrow(() -> reviewService.deleteReviewById(2L));
+        assertDoesNotThrow(() -> reviewService.deleteReviewById(1L));
         assertEquals(1, reviewService.getReviews(null).size());
     }
 

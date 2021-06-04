@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 @Injectable({providedIn: 'root'})
 export class HomeService {
     private apiBaseUrl = environment.apiBaseUrl;
-    constructor(private http: HttpClient, private router: Router) {}
+    constructor(private http: HttpClient) {}
 
     public authenticate(username: string, password:string): Observable<Response> {
         return this.http.post<Response>(`${this.apiBaseUrl}/authenticate`, 

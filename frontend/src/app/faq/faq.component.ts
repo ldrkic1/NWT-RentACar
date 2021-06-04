@@ -33,6 +33,7 @@ export class FaqComponent implements OnInit {
     }
 
     public onAddQuestion(addQuestionForm: NgForm): void {
+      const closeFormBtn = document.getElementById('add-question-form');
       addQuestionForm.value.user={};
       addQuestionForm.value.user.username="";
       let user = sessionStorage.getItem("username");
@@ -42,7 +43,7 @@ export class FaqComponent implements OnInit {
           console.log(response);
           this.getAnswersAndQuestions();
           addQuestionForm.reset();
-          
+          if(closeFormBtn != null) closeFormBtn.click();
         },
         (error: HttpErrorResponse) => {
           addQuestionForm.reset();
