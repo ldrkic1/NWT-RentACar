@@ -15,6 +15,7 @@ call mvn clean install -DskipTests
 cd ../System-events
 call mvn clean install -DskipTests
 cd ../frontend
+call npm install
 call ng build --configuration production
 cd ../
 call docker-compose up --build
