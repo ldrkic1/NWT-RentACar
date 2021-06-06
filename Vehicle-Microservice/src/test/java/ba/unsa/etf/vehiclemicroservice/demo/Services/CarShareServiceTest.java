@@ -1,17 +1,11 @@
 package ba.unsa.etf.vehiclemicroservice.demo.Services;
-import ba.unsa.etf.vehiclemicroservice.demo.Exception.ApiRequestException;
 import ba.unsa.etf.vehiclemicroservice.demo.Exception.NotFoundException;
-import ba.unsa.etf.vehiclemicroservice.demo.Exception.ValidationException;
-import ba.unsa.etf.vehiclemicroservice.demo.Model.*;
-
+import ba.unsa.etf.vehiclemicroservice.demo.Model.CarShare;
 import org.junit.Test;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-
-import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
 @RunWith(SpringRunner.class)

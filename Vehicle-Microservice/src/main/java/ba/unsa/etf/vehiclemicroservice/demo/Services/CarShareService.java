@@ -1,15 +1,11 @@
 package ba.unsa.etf.vehiclemicroservice.demo.Services;
 
 import ba.unsa.etf.vehiclemicroservice.demo.Exception.NotFoundException;
-import ba.unsa.etf.vehiclemicroservice.demo.Exception.ValidationException;
 import ba.unsa.etf.vehiclemicroservice.demo.Model.CarShare;
-import ba.unsa.etf.vehiclemicroservice.demo.Model.Category;
-import ba.unsa.etf.vehiclemicroservice.demo.Model.Registered;
 import ba.unsa.etf.vehiclemicroservice.demo.Repository.CarShareRepository;
 import ba.unsa.etf.vehiclemicroservice.demo.Repository.RegisteredRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.List;
 import java.util.Optional;
@@ -30,7 +26,10 @@ public class CarShareService {
         }
         else throw new NotFoundException("CarShare with id: " + categoryId + " doesn't exist.");
     }
-
+    @Autowired
+    public void MyCarShareServiceTest(CarShareRepository repository) {
+        this.carShareRepository = repository;
+    }
     public CarShare createNewCarShare(CarShare carShare) {
             return carShareRepository.save(carShare);
     }

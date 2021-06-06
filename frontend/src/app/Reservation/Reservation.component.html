@@ -1,0 +1,189 @@
+<head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <style>
+    body {
+      background-image: url('https://www.focus2move.com/wp-content/uploads/2020/08/Tesla-Roadster-2020-1024-03.jpg');
+      background-repeat: no-repeat;
+    }
+    .page-container{
+      margin-top:40px;
+    }
+    figure.user-card {
+      background: #ffffff;
+      padding: 20px;
+      border-top: 3px solid #f2f2f2;
+      border: 1px solid #e1e5f1;
+      text-align: center;
+    }
+
+    figure.user-card.red {
+      border-top: 3px solid #fc6d4c;
+    }
+
+    figure.user-card.green {
+      border-top: 3px solid #3ecfac;
+    }
+
+    figure.user-card.blue {
+      border-top: 3px solid #5a99ee;
+    }
+
+    figure.user-card.yellow {
+      border-top: 3px solid #ffc139;
+    }
+
+    figure.user-card.orange {
+      border-top: 3px solid #ff5000;
+    }
+
+    figure.user-card.teal {
+      border-top: 3px solid #47BCC7;
+    }
+
+    figure.user-card.pink {
+      border-top: 3px solid #ff9fd0;
+    }
+
+    figure.user-card.brown {
+      border-top: 3px solid #79574b;
+    }
+
+    figure.user-card.purple {
+      border-top: 3px solid #904e95;
+    }
+
+    figure.user-card.fb {
+      border-top: 3px solid #3B5998;
+    }
+
+    figure.user-card.gp {
+      border-top: 3px solid #E02F2F;
+    }
+
+    figure.user-card .profile {
+      -webkit-border-radius: 5px;
+      -moz-border-radius: 5px;
+      border-radius: 5px;
+      max-width: 300px;
+      margin-bottom: 20px;
+    }
+
+    figure.user-card h5 {
+      margin: 0 0 5px 0;
+    }
+
+    figure.user-card h6 {
+      margin: 0 0 15px 0;
+      color: #8796af;
+      font-size: 14px;
+    }
+
+    figure.user-card p {
+      margin: 0;
+      padding: 0 0 15px 0;
+      color: #8796af;
+      line-height: 150%;
+      font-size: .85rem;
+    }
+
+    figure.user-card ul.contacts {
+      margin: 0;
+      padding: 0 0 15px 0;
+      line-height: 150%;
+      font-size: .85rem;
+    }
+
+    figure.user-card ul.contacts li {
+      padding: .2rem 0;
+    }
+
+    figure.user-card ul.contacts li a {
+      color: #5a99ee;
+    }
+
+    figure.user-card ul.contacts li a i {
+      min-width: 36px;
+      float: left;
+      font-size: 1rem;
+    }
+
+    figure.user-card ul.contacts li:last-child a {
+      color: #ff5000;
+    }
+
+    ul li {
+      list-style-type: none;
+    }
+    .resize {
+      width: 10px;
+      height: auto;
+    }
+    .resize2 {
+      width: 300px;
+      height: 200px;
+    }
+
+  </style>
+</head>
+<main>
+
+  <div class="container page-container" id="main-container">
+    <div class="row gutters">
+      <div *ngFor="let reservation of reservations">
+        <figure class="user-card gp">
+          <figcaption>
+            <div class="resize2">
+            <img src="{{reservation.vehicle.url}}" alt="Model" class="profile">
+            </div>
+            <h6>Model: {{reservation.vehicle.model}} </h6>
+            <p> Reservation start: {{reservation.reservationStart}}</p>
+            <p> Reservation end: {{reservation.reservationEnd}}</p>
+            <p *ngIf="homeService.isAdminLoggedIn()" > Username: {{reservation.registered.username}} </p>
+            <a (click)="onOpenModal(reservation, 'delete1')"  *ngIf="homeService.isClientLoggedIn()" class="btn btn-secondary tooltips" data-placement="top" data-original-title="Delete">Cancel</a>
+            <a (click)="onOpenModal(reservation, 'delete')"  *ngIf="homeService.isAdminLoggedIn()" class="btn btn-secondary tooltips" data-placement="top" data-original-title="Delete">Delete Reservation</a>
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+  </div>
+</main>
+
+<div class="modal fade" id="deleteVehicleModal" tabindex="-1" role="dialog" aria-labelledby="deleteModelLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deleteModelLabel">Delete Reservation</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you want to delete the reservation for {{deleteReservation?.registered?.username}}?</p>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+          <button (click)="onDeleteReservation(deleteReservation?.id)" class="btn btn-danger" data-dismiss="modal">Yes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="deleteVehicleModal1" tabindex="-1" role="dialog" aria-labelledby="deleteModelLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deleteModelLabe1l">Delete Reservation</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you want to delete your reservation?</p>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+          <button (click)="onDeleteReservation(deleteReservation?.id)" class="btn btn-danger" data-dismiss="modal">Yes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,21 +1,29 @@
 package ba.unsa.etf.vehiclemicroservice.demo.Model;
 
-import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table
 public class Registered {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long  id;
     private String firstName;
     private String lastName;
-    /*@OneToMany(mappedBy = "registered")
-    private List<Reservation> reservation;*/
+    @NotBlank(message = "Username is required!")
+    @Size(min = 1, max = 15, message = "Username must have between 1 and 15 characters!")
+    private String username;
 
     public Registered() {
+    }
+
+    public Registered(String firstName, String lastName, String username) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.username = username;
     }
 
     public Long getId() {
@@ -40,5 +48,20 @@ public class Registered {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    @Override
+    public String toString() {
+        return "User {" +
+                "id=" + id +
+                '}';
     }
 }

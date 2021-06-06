@@ -9,6 +9,8 @@ import { AdminReviewComponent } from './adminReview';
 import { AdminFaqComponent } from './adminFAQ';
 import { ClientComponent } from './client';
 import { LogoutComponent } from './logout/logout.component';
+import {CarShareComponent} from "./CarShare";
+import {ReservationComponent} from "./Reservation";
 
 const routes: Routes = [
     { path: '', component: HomeComponent },
@@ -20,6 +22,8 @@ const routes: Routes = [
     { path: 'adminFAQ', component: AdminFaqComponent},
     { path: 'client', component: ClientComponent},
     { path: 'logout', component: LogoutComponent},
+    { path: 'carShare', component: CarShareComponent},
+    { path: 'reservations', component: ReservationComponent},
     // otherwise redirect to home
     { path: '**', redirectTo: '' }
 ];

@@ -1,12 +1,13 @@
 package ba.unsa.etf.vehiclemicroservice.demo.Services;
 
-import ba.unsa.etf.vehiclemicroservice.demo.Exception.ApiRequestException;
 import ba.unsa.etf.vehiclemicroservice.demo.Exception.NotFoundException;
 import ba.unsa.etf.vehiclemicroservice.demo.Exception.ValidationException;
-import ba.unsa.etf.vehiclemicroservice.demo.Model.*;
-
+import ba.unsa.etf.vehiclemicroservice.demo.Model.Category;
+import ba.unsa.etf.vehiclemicroservice.demo.Model.Registered;
+import ba.unsa.etf.vehiclemicroservice.demo.Model.Reservation;
+import ba.unsa.etf.vehiclemicroservice.demo.Model.Vehicle;
+import org.json.JSONException;
 import org.junit.Test;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -43,7 +44,7 @@ public class ReservationServiceTest {
         );
     }
     @Test
-    public void createNewReservation() {
+    public void createNewReservation() throws JSONException {
         int a = reservationService.getAllReservation().size();
         Reservation reservation = new Reservation();
         Vehicle vehicle = new Vehicle();

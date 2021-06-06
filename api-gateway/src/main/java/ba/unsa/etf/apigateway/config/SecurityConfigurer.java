@@ -54,12 +54,12 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter{
 
                 .antMatchers(HttpMethod.POST,"/clientcares/answer").permitAll()
 
-                .antMatchers(HttpMethod.GET,"/vehicles/vehicle/all","/vehicles/vehicle/category","/vehicles/vehicle").permitAll()
-                .antMatchers(HttpMethod.DELETE,"/vehicles/vehicle").hasRole("ADMIN")
-                .antMatchers(HttpMethod.POST,"/vehicles/vehicle").hasRole("ADMIN")
-                .antMatchers(HttpMethod.PUT, "/vehicles/vehicle").hasRole("ADMIN")
-                .antMatchers(HttpMethod.POST,"/vehicles/reservation").hasAnyRole("ADMIN","CLIENT")
-                .antMatchers(HttpMethod.GET,"/vehicles/reservation/all").hasRole("ADMIN")
+                .antMatchers(HttpMethod.GET,"/vehicles/vehicle/all","/vehicles/vehicle/category","/vehicles/vehicle","/vehicles/category/bydescription","/vehicles/carshare/all","/vehicles/reservation/username","/vehicles/reservation/registered").permitAll()
+                .antMatchers(HttpMethod.DELETE,"/vehicles/vehicle","/vehicles/carshare","/vehicles/reservation").permitAll()
+                .antMatchers(HttpMethod.POST,"/vehicles/vehicle","/vehicles/carshare").permitAll()
+                .antMatchers(HttpMethod.PUT, "/vehicles/vehicle/update").permitAll()
+                .antMatchers(HttpMethod.POST,"/vehicles/reservation").permitAll()
+                .antMatchers(HttpMethod.GET,"/vehicles/reservation/all").permitAll()
                 .antMatchers(HttpMethod.GET,"/vehicles/reservation").hasRole("CLIENT")
 
                 .anyRequest().authenticated()

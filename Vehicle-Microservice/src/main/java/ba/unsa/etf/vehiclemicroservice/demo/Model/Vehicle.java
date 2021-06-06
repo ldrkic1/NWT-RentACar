@@ -3,8 +3,6 @@ package ba.unsa.etf.vehiclemicroservice.demo.Model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 import javax.validation.constraints.NotBlank;
 @Entity
 @Table
@@ -16,6 +14,7 @@ public class Vehicle {
     private String model;
     private int brojSjedista;
     private int potrosnja;
+    private String URL;
     @ManyToOne
     @JoinColumn(name = "category_id", nullable =false)
     @JsonIgnoreProperties(value = {"applications", "hibernateLazyInitializer"})
@@ -24,6 +23,14 @@ public class Vehicle {
     private List<Reservation> reservation;*/
 
     public Vehicle() {
+    }
+
+    public String getURL() {
+        return URL;
+    }
+
+    public void setURL(String URL) {
+        this.URL = URL;
     }
 
     public Long getId() {

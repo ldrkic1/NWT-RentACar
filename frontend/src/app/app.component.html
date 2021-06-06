@@ -11,6 +11,9 @@
       <a class="nav-item nav-link" *ngIf="homeService.isAdminLoggedIn()" routerLink="/adminReview">Review</a>
       <a class="nav-item nav-link" *ngIf="homeService.isAdminLoggedIn()" routerLink="/adminFAQ">FAQ</a>
       <a class="nav-item nav-link" *ngIf="homeService.isAdminLoggedIn()" routerLink="/client">Client</a>
+      <a class="nav-item nav-link" *ngIf="homeService.isClientLoggedIn()" routerLink="/carShare">CarShare</a>
+     <a class="nav-item nav-link" *ngIf="homeService.isClientLoggedIn()" routerLink="/reservations">Reservations</a>
+      <a class="nav-item nav-link" *ngIf="homeService.isAdminLoggedIn()" routerLink="/reservations">Reservations</a>
   </div>
   <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
     <ul class="navbar-nav ml-auto">
@@ -56,7 +59,7 @@
       <div class="col-xs-12 col-sm-12 col-md-12 mt-2 mt-sm-2 text-center text-white">
         <p class="h6">All right Reversed.</p>
       </div>
-    </div>	
+    </div>
   </div>
 </section>
 <!-- ./Footer -->

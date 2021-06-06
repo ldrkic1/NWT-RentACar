@@ -3,12 +3,9 @@ package ba.unsa.etf.vehiclemicroservice.demo.Services;
 import ba.unsa.etf.vehiclemicroservice.demo.Exception.ApiRequestException;
 import ba.unsa.etf.vehiclemicroservice.demo.Exception.NotFoundException;
 import ba.unsa.etf.vehiclemicroservice.demo.Exception.ValidationException;
-import ba.unsa.etf.vehiclemicroservice.demo.Model.Vehicle;
-import ba.unsa.etf.vehiclemicroservice.demo.Model.Reservation;
 import ba.unsa.etf.vehiclemicroservice.demo.Model.Category;
-
+import ba.unsa.etf.vehiclemicroservice.demo.Model.Vehicle;
 import org.junit.Test;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -60,14 +57,14 @@ public class VehicleServiceTest {
     public void editVehicle() {
         Vehicle vehicle = vehicleService.getVehicleById(2L);
         vehicle.setPotrosnja(8);
-        vehicleService.editVehicle(2L,vehicle);
+        vehicleService.editVehicle(vehicle);
         assertEquals(8,vehicleService.getVehicleById(2L).getPotrosnja());
         Vehicle vehicle1 = vehicleService.getVehicleById(3L);
         vehicle1.setBrojSjedista(1);
         assertAll(
                 ()-> assertThrows(
                         ValidationException.class,
-                        () -> vehicleService.editVehicle(2L,vehicle1))
+                        () -> vehicleService.editVehicle(vehicle1))
         );
     }
     @Test

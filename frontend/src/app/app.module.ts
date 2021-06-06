@@ -17,6 +17,8 @@ import { ClientComponent } from './client';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LogoutComponent } from './logout/logout.component';
 import { SignUpComponent } from './signup';
+import {CarShareComponent} from "./CarShare";
+import {ReservationComponent} from "./Reservation";
 
 @NgModule({
   declarations: [
@@ -29,7 +31,9 @@ import { SignUpComponent } from './signup';
     AdminFaqComponent,
     ClientComponent,
     LogoutComponent,
-    SignUpComponent
+    SignUpComponent,
+    CarShareComponent,
+    ReservationComponent
   ],
   imports: [
     BrowserModule,

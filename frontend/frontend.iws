@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="a0113b0f-de90-4b14-b4bb-51c0f1ec24bf" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/../Vehicle-Microservice/src/main/java/ba/unsa/etf/grpc/ActionType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Vehicle-Microservice/src/main/java/ba/unsa/etf/grpc/ResponseType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Vehicle-Microservice/src/main/java/ba/unsa/etf/grpc/SystemEvent.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Vehicle-Microservice/src/main/java/ba/unsa/etf/grpc/SystemEventResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Vehicle-Microservice/src/main/java/ba/unsa/etf/grpc/SystemEventResponseOrBuilder.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Vehicle-Microservice/src/main/java/ba/unsa/etf/grpc/SystemEventsRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Vehicle-Microservice/src/main/java/ba/unsa/etf/grpc/SystemEventsRequestOrBuilder.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Vehicle-Microservice/src/main/java/ba/unsa/etf/grpc/actionGrpc.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Vehicle-Microservice/src/main/java/ba/unsa/etf/vehiclemicroservice/demo/Exception/HttpServletResponseCopier.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Vehicle-Microservice/src/main/java/ba/unsa/etf/vehiclemicroservice/demo/Exception/ServletOutputStream.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Vehicle-Microservice/src/main/java/ba/unsa/etf/vehiclemicroservice/demo/Exception/ServletOutputStreamCopier.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Vehicle-Microservice/src/main/java/ba/unsa/etf/vehiclemicroservice/demo/Interceptors/VehicleServiceInterceptor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Vehicle-Microservice/src/main/java/ba/unsa/etf/vehiclemicroservice/demo/Interceptors/VehicleServiceInterceptorConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Vehicle-Microservice/src/main/resources/proto/SystemEvent.proto" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend.ipr" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend.iws" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/CarShare/CarShare.component.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/CarShare/CarShare.component.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/CarShare/CarShare.compontent.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/CarShare/CarShare.service.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/CarShare/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/Reservation/Reservation.component.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/Reservation/Reservation.component.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/Reservation/Reservation.component.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/Reservation/Reservation.service.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/Reservation/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/models/CarShare.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/models/Category.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/models/Registered.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/models/Reservation.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/models/Vehicle.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/vehicle/vehicle.component.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/vehicle/vehicle.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Vehicle-Microservice/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Vehicle-Microservice/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Vehicle-Microservice/src/main/java/ba/unsa/etf/vehiclemicroservice/demo/Controller/ReservationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Vehicle-Microservice/src/main/java/ba/unsa/etf/vehiclemicroservice/demo/Controller/ReservationController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Vehicle-Microservice/src/main/java/ba/unsa/etf/vehiclemicroservice/demo/Controller/VehicleController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Vehicle-Microservice/src/main/java/ba/unsa/etf/vehiclemicroservice/demo/Controller/VehicleController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Vehicle-Microservice/src/main/java/ba/unsa/etf/vehiclemicroservice/demo/DemoApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Vehicle-Microservice/src/main/java/ba/unsa/etf/vehiclemicroservice/demo/DemoApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Vehicle-Microservice/src/main/java/ba/unsa/etf/vehiclemicroservice/demo/Model/Registered.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Vehicle-Microservice/src/main/java/ba/unsa/etf/vehiclemicroservice/demo/Model/Registered.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Vehicle-Microservice/src/main/java/ba/unsa/etf/vehiclemicroservice/demo/Model/Vehicle.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Vehicle-Microservice/src/main/java/ba/unsa/etf/vehiclemicroservice/demo/Model/Vehicle.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Vehicle-Microservice/src/main/java/ba/unsa/etf/vehiclemicroservice/demo/Repository/RegisteredRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Vehicle-Microservice/src/main/java/ba/unsa/etf/vehiclemicroservice/demo/Repository/RegisteredRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Vehicle-Microservice/src/main/java/ba/unsa/etf/vehiclemicroservice/demo/Repository/ReservationRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Vehicle-Microservice/src/main/java/ba/unsa/etf/vehiclemicroservice/demo/Repository/ReservationRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Vehicle-Microservice/src/main/java/ba/unsa/etf/vehiclemicroservice/demo/Repository/VehicleRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Vehicle-Microservice/src/main/java/ba/unsa/etf/vehiclemicroservice/demo/Repository/VehicleRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Vehicle-Microservice/src/main/java/ba/unsa/etf/vehiclemicroservice/demo/Services/CarShareService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Vehicle-Microservice/src/main/java/ba/unsa/etf/vehiclemicroservice/demo/Services/CarShareService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Vehicle-Microservice/src/main/java/ba/unsa/etf/vehiclemicroservice/demo/Services/CategoryService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Vehicle-Microservice/src/main/java/ba/unsa/etf/vehiclemicroservice/demo/Services/CategoryService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Vehicle-Microservice/src/main/java/ba/unsa/etf/vehiclemicroservice/demo/Services/ReservationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Vehicle-Microservice/src/main/java/ba/unsa/etf/vehiclemicroservice/demo/Services/ReservationService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Vehicle-Microservice/src/main/java/ba/unsa/etf/vehiclemicroservice/demo/Services/VehicleService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Vehicle-Microservice/src/main/java/ba/unsa/etf/vehiclemicroservice/demo/Services/VehicleService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Vehicle-Microservice/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../Vehicle-Microservice/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Vehicle-Microservice/src/test/java/ba/unsa/etf/vehiclemicroservice/demo/Services/CarShareServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Vehicle-Microservice/src/test/java/ba/unsa/etf/vehiclemicroservice/demo/Services/CarShareServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Vehicle-Microservice/src/test/java/ba/unsa/etf/vehiclemicroservice/demo/Services/ReservationServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Vehicle-Microservice/src/test/java/ba/unsa/etf/vehiclemicroservice/demo/Services/ReservationServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Vehicle-Microservice/src/test/java/ba/unsa/etf/vehiclemicroservice/demo/Services/VehicleServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Vehicle-Microservice/src/test/java/ba/unsa/etf/vehiclemicroservice/demo/Services/VehicleServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../api-gateway/src/main/java/ba/unsa/etf/apigateway/config/SecurityConfigurer.java" beforeDir="false" afterPath="$PROJECT_DIR$/../api-gateway/src/main/java/ba/unsa/etf/apigateway/config/SecurityConfigurer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/app.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/app.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/app.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/app.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/app.routing.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/app.routing.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/vehicle/vehicle.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/vehicle/vehicle.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/vehicle/vehicle.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/vehicle/vehicle.component.ts" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectId" id="1tZcEcXpkVYs3lie042vSOqkuvP" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="ts.external.directory.path" value="C:\Users\User\Desktop\Konacna Verzija\NWT-RentACar\frontend\node_modules\typescript\lib" />
+  </component>
+  <component name="RunManager" selected="npm.Angular CLI Server">
+    <configuration name="Angular Application" type="JavascriptDebugType" uri="http://localhost:4200">
+      <method v="2" />
+    </configuration>
+    <configuration name="Angular CLI Server" type="js.build_tools.npm">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="start" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="a0113b0f-de90-4b14-b4bb-51c0f1ec24bf" name="Default Changelist" comment="" />
+      <created>1622979941220</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1622979941220</updated>
+      <workItem from="1622979943535" duration="1954000" />
+      <workItem from="1622983521470" duration="2436000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="2" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="740" y="221" key="FileChooserDialogImpl" timestamp="1622983772989">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="740" y="221" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1622983772989" />
+    <state width="1877" height="76" key="GridCell.Tab.0.bottom" timestamp="1622982871308">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="76" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1622982871308" />
+    <state width="1877" height="76" key="GridCell.Tab.0.center" timestamp="1622982871308">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="76" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1622982871308" />
+    <state width="1877" height="76" key="GridCell.Tab.0.left" timestamp="1622982871308">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="76" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1622982871308" />
+    <state width="1877" height="76" key="GridCell.Tab.0.right" timestamp="1622982871308">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="76" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1622982871308" />
+  </component>
+</project>

@@ -41,9 +41,9 @@ public class VehicleController {
     }
 
     // put http://localhost:8080/vehicle?id=1
-    @PutMapping
-    public Vehicle editVehicle(@RequestParam(value="id") Long id, @RequestBody Vehicle vehicle) {
-        return vehicleService.editVehicle(id, vehicle);
+    @PutMapping(path = "/update")
+    public Vehicle editVehicle(@RequestBody Vehicle vehicle) {
+        return vehicleService.editVehicle(vehicle);
     }
     @PostMapping
     public Vehicle addVehicle(@RequestBody Vehicle vehicle) {

@@ -1,0 +1,31 @@
+syntax = "proto3";
+option java_multiple_files = true;
+option java_package = "ba.unsa.etf.grpc";
+
+message SystemEventsRequest {
+  string timeStamp = 1;
+  string microservice = 2;
+  string action = 3;
+  string resource = 4;
+  string response = 5;
+  string message = 6;
+  int64 idKorisnik = 7;
+}
+enum ActionType {
+  CREATE = 0;
+  UPDATE = 1;
+  DELETE = 2;
+  GET = 3;
+}
+enum ResponseType {
+  SUCCESS = 0;
+  ERROR = 1;
+}
+message SystemEventResponse {
+  string responseContent = 1;
+  ResponseType responseType = 2;
+}
+
+service action{
+  rpc logAction(SystemEventsRequest) returns(SystemEventResponse);
+}

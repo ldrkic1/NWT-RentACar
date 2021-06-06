@@ -1,1 +1,302 @@
-<h1>Vehicle Page</h1>
+<head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <style>
+    body{
+      background: #eee;
+    }
+    .page-container{
+      margin-top:40px;
+    }
+    figure.user-card {
+      background: #ffffff;
+      padding: 20px;
+      border-top: 3px solid #f2f2f2;
+      border: 1px solid #e1e5f1;
+      text-align: center;
+    }
+
+    figure.user-card.red {
+      border-top: 3px solid #fc6d4c;
+    }
+
+    figure.user-card.green {
+      border-top: 3px solid #3ecfac;
+    }
+
+    figure.user-card.blue {
+      border-top: 3px solid #5a99ee;
+    }
+
+    figure.user-card.yellow {
+      border-top: 3px solid #ffc139;
+    }
+
+    figure.user-card.orange {
+      border-top: 3px solid #ff5000;
+    }
+
+    figure.user-card.teal {
+      border-top: 3px solid #47BCC7;
+    }
+
+    figure.user-card.pink {
+      border-top: 3px solid #ff9fd0;
+    }
+
+    figure.user-card.brown {
+      border-top: 3px solid #79574b;
+    }
+
+    figure.user-card.purple {
+      border-top: 3px solid #904e95;
+    }
+
+    figure.user-card.fb {
+      border-top: 3px solid #3B5998;
+    }
+
+    figure.user-card.gp {
+      border-top: 3px solid #E02F2F;
+    }
+
+    figure.user-card .profile {
+      -webkit-border-radius: 5px;
+      -moz-border-radius: 5px;
+      border-radius: 5px;
+      max-width: 300px;
+      margin-bottom: 20px;
+    }
+
+    figure.user-card h5 {
+      margin: 0 0 5px 0;
+    }
+
+    figure.user-card h6 {
+      margin: 0 0 15px 0;
+      color: #8796af;
+      font-size: 14px;
+    }
+
+    figure.user-card p {
+      margin: 0;
+      padding: 0 0 15px 0;
+      color: #8796af;
+      line-height: 150%;
+      font-size: .85rem;
+    }
+
+    figure.user-card ul.contacts {
+      margin: 0;
+      padding: 0 0 15px 0;
+      line-height: 150%;
+      font-size: .85rem;
+    }
+
+    figure.user-card ul.contacts li {
+      padding: .2rem 0;
+    }
+
+    figure.user-card ul.contacts li a {
+      color: #5a99ee;
+    }
+
+    figure.user-card ul.contacts li a i {
+      min-width: 36px;
+      float: left;
+      font-size: 1rem;
+    }
+
+    figure.user-card ul.contacts li:last-child a {
+      color: #ff5000;
+    }
+
+    ul li {
+      list-style-type: none;
+    }
+    .resize {
+      width: 30px;
+      height: auto;
+    }
+    .resize2 {
+      width: 300px;
+      height: 200px;
+    }
+    body {
+      background-image: url('https://www.focus2move.com/wp-content/uploads/2020/08/Tesla-Roadster-2020-1024-03.jpg');
+      background-repeat: no-repeat;
+    }
+
+  </style>
+</head>
+<main>
+  <input type="checkbox" [(ngModel)]="filter.All" (ngModelChange)="filterChange()" /> All
+  <input type="checkbox" [(ngModel)]="filter.Luksuzna" (ngModelChange)="filterChange()" /> Luxury
+  <input type="checkbox" [(ngModel)]="filter.Hatchback" (ngModelChange)="filterChange()" /> HatchBack
+  <input type="checkbox" [(ngModel)]="filter.Sedan" (ngModelChange)="filterChange()" /> Sedan
+  <input type="checkbox" [(ngModel)]="filter.StationWagon" (ngModelChange)="filterChange()" /> Stationwagon
+  <div class="container page-container" id="main-container">
+    <div class="row gutters">
+      <div *ngFor="let vehicle of filteredCars">
+        <figure class="user-card gp">
+          <figcaption>
+            <div class="resize2">
+            <img src="{{vehicle.url}}" alt="Model" class="profile">
+            </div>
+            <h5>{{vehicle.model}}</h5>
+            <h6>Fuel economy: {{vehicle.potrosnja}} l/100km</h6>
+            <p>Number of seats: {{vehicle.brojSjedista}}</p>
+            <a (click)="onOpenModal(vehicle, 'addReservation')" *ngIf="homeService.isClientLoggedIn()" class="btn btn-secondary tooltips" data-placement="top" data-original-title="Delete">Reserve now!</a>
+            <a (click)="onOpenModal(vehicle, 'edit')"  *ngIf="homeService.isAdminLoggedIn()" class="btn btn-secondary tooltips" data-placement="top" data-original-title="Delete"><i class="fa fa-pencil"></i></a>
+            <a (click)="onOpenModal(vehicle, 'delete')"  *ngIf="homeService.isAdminLoggedIn()" class="btn btn-secondary tooltips" data-placement="top" data-original-title="Delete"><i class="fa fa-times"></i></a>
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+  </div>
+  <button type="button" class="btn btn-secondary btn-lg" data-toggle="modal" *ngIf="homeService.isAdminLoggedIn()" data-target="#addVehicleModal">Add a Vehicle</button>
+</main>
+<body>
+<div id="addVehicleModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="mb-4">Add a Vehicle</h5>
+        <button type="button" class="close" data-dismiss="modal" id="add-question-form">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form #addVehicle="ngForm" (ngSubmit)="onAddVehicle(addVehicle)">
+          <div class="form-group">
+            <input class="form-control form-control-lg" type="text" ngModel name="model" placeholder="Model" required>
+            <br>
+            <input class="form-control form-control-lg" type="number" ngModel name="brojSjedista" placeholder="Number of seats" required>
+            <br>
+            <input class="form-control form-control-lg" type="number" ngModel name="potrosnja" placeholder="Fuel Economy"  required>
+            <br>
+            <input class="form-control form-control-lg" type="text" ngModel name="category" placeholder="Category"   required>
+            <br>
+            <input class="form-control form-control-lg" type="text" ngModel name="url" placeholder="Url" required>
+          </div>
+          <div class="form-group">
+            <div class="alert alert-warning" *ngIf="message !== ''">
+              <strong>{{message}}</strong>
+            </div>
+            <button [disabled]="addVehicle.invalid" class="btn btn-secondary btn-sm" type="submit"> Add Vehicle </button>
+          </div>
+         </form>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="updateVehicleModal" tabindex="-1" role="dialog" aria-labelledby="employeeEditModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="updateEmployeeModalLabel">Edit Vehicle {{updateVehicle?.model}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form #updateVehicleForm="ngForm" (ngSubmit)="onEditVehicle(updateVehicleForm)">
+          <input type="hidden" ngModel="{{updateVehicle?.id}}" name="id" class="form-control" placeholder="Email">
+          <div class="form-group">
+            <label>Name</label>
+            <input type="text" ngModel="{{updateVehicle?.model}}" name="model" class="form-control" aria-describedby="emailHelp" placeholder="Model">
+          </div>
+          <div class="form-group">
+            <label>Number of seats</label>
+            <input type="email" ngModel="{{updateVehicle?.brojSjedista}}" name="brojSjedista" class="form-control" placeholder="Number of seats">
+          </div>
+          <div class="form-group">
+            <label>Fuel Economy</label>
+            <input type="text" ngModel="{{updateVehicle?.potrosnja}}" name="potrosnja" class="form-control" placeholder="Fuel Economy">
+          </div>
+          <div class="form-group">
+            <label>Category</label>
+            <input type="text" ngModel="{{updateVehicle?.category?.description}}" name="category" class="form-control"  placeholder="Category">
+          </div>
+          <div class="form-group">
+            <label>Image URL</label>
+            <input type="text" ngModel="{{updateVehicle?.url}}" name="url" class="form-control"  placeholder="Image URL">
+          </div>
+          <div class="modal-footer">
+            <div class="alert alert-warning" *ngIf="message !== ''">
+              <strong>{{message}}</strong>
+            </div>
+            <button [disabled]="updateVehicleForm.invalid" class="btn btn-secondary" type="submit"> Add Vehicle </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="deleteVehicleModal" tabindex="-1" role="dialog" aria-labelledby="deleteModelLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deleteModelLabel">Delete Vehicle</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you want to delete vehicle {{deleteVehicle?.model}}?</p>
+        <div class="modal-footer">
+          <div class="alert alert-warning" *ngIf="message !== ''">
+            <strong>{{message}}</strong>
+          </div>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+          <button (click)="onDeleteVehicle(deleteVehicle?.id)" class="btn btn-danger" data-dismiss="modal">Yes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="createReservation" tabindex="-1" role="dialog" aria-labelledby="employeeEditModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Reserve your vehicle {{updateVehicle?.model}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form #reservationForm="ngForm" (ngSubmit)="onAddReservation(reservationForm)">
+            <label>Starting date &nbsp;</label>
+          <input type="date" id="start" name="reservationStart"
+                 value="2021-05-28"
+                 min="2021-05-27" max="2021-12-31" ngModel>
+          <br>
+          <br>
+          <label>Ending date &nbsp; &nbsp; </label>
+          <input type="date" id="end" name="reservationEnd"
+                 value="2021-05-28"
+                 min="2021-05-27" max="2021-12-31" ngModel>
+          <br>
+          <input class="form-control form-control-lg" type="text" *ngIf="homeService.isAdminLoggedIn()" ngModel name="username" placeholder="Username" required>
+          <br>
+          <input class="form-control form-control-lg" type="text" ngModel name="brojRezervacije" placeholder="Number of your reservation" required>
+          <form action="/action_page.php" class = "radio-inline">
+            <br>
+            <p>Do you want to share your vehicle:</p>
+            <input type="radio" id="true" [(ngModel)]="carShare1" name="carShare" value="true" required>
+            <label for="true">Yes</label><br>
+            <input type="radio" id="false" [(ngModel)]="carShare1" name="carShare"  value="false" required>
+            <label for="false">No</label><br>
+          </form>
+          <div class="modal-footer">
+            <div class="alert alert-warning" *ngIf="message !== ''">
+              <strong>{{message}}</strong>
+            </div>
+            <button [disabled]="reservationForm.invalid" class="btn btn-secondary" type="submit"> Add Reservation </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+</body>

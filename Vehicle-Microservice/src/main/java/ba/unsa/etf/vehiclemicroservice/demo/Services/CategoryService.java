@@ -28,8 +28,13 @@ public class CategoryService {
     }
 
     public Category findCategoryByDescription(String description) {
-        Category category = categoryRepository.findByDescription(description);
-        return categoryRepository.findByDescription(description);
+        try {
+            Category category = categoryRepository.findByDescription(description);
+            System.out.println("BANANA");
+            return categoryRepository.findByDescription(description);
+        }catch (Exception e) {
+            throw new NotFoundException("Category with the name: "+description+" doesn't exist. ");
+        }
     }
     public void deleteById(Long categoryId) {
         Optional<Category> category = categoryRepository.findById(categoryId);

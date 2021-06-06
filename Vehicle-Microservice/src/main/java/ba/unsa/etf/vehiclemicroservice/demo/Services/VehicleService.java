@@ -81,8 +81,8 @@ public class VehicleService {
         else throw new NotFoundException("Vehicle with id: " + id + " doesn't exist.");
     }
     @Transactional
-    public Vehicle editVehicle(Long id, Vehicle vehicle) {
-        Optional<Vehicle> optional = vehicleRepository.findById(id);
+    public Vehicle editVehicle(Vehicle vehicle) {
+        Optional<Vehicle> optional = vehicleRepository.findById(vehicle.getId());
         if(optional.isPresent()) {
             Category category = categoryService.findCategoryByDescription(vehicle.getCategory().getDescription());
             if(!vehicle.getModel().isBlank()) optional.get().setModel(vehicle.getModel());
@@ -91,16 +91,22 @@ public class VehicleService {
             else throw new ValidationException("Number of seats can't be less than 2!");
             optional.get().setPotrosnja(vehicle.getPotrosnja());
             optional.get().setCategory(category);
+            optional.get().setURL(vehicle.getURL());
             return optional.get();
         }
-        else throw new NotFoundException("Vehicle with id: " + id + " doesn't exist.");
+        else throw new NotFoundException("Vehicle with id: " + vehicle.getId() + " doesn't exist.");
     }
 
     public Vehicle addVehicle(Vehicle vehicle) {
         Category category = categoryService.findCategoryByDescription(vehicle.getCategory().getDescription());
+        System.out.println("OVO JE BANANA");
         vehicle.setCategory(category);
         if(vehicle.getModel() == null || vehicle.getModel().isBlank()) throw new ValidationException("Model is required");
         if(vehicle.getBrojSjedista()<2) throw new ValidationException("Number of seats can't be less than 2!");
-        return vehicleRepository.save(vehicle);
+        try {
+            return vehicleRepository.save(vehicle);
+        }catch (Exception e){
+            throw new ValidationException("The category is wrong, try again.");
+        }
     }
 }

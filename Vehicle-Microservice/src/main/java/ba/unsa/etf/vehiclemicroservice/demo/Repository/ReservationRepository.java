@@ -17,4 +17,7 @@ public interface ReservationRepository extends JpaRepository<Reservation,Long> {
     void deleteVehicleReservations(Long vehicleId);
     @Query("SELECT COUNT (reservationStart) FROM Reservation where reservationStart =: reservationStart")
     Long findByReservationStart(LocalDate reservationStart);
+   // @Query("SELECT * FROM Reservation r where r.registered.id=:registeredId")
+    List<Reservation> getReservationsByRegisteredId(Long registeredId);
+    //Long getIdFromUsername(String username);
 }
